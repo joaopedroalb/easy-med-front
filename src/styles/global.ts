@@ -7,7 +7,12 @@ const GlobalStyle = createGlobalStyle`
     }
 
     :root{
-        --white:#fff
+        --white:#fff;
+        --blue:#299EF1;
+        --green:#5FDD43;
+        --red:#EE3C3C;
+        --black:#080708;
+        --orange:#FD8719;
     }
 
     *{
