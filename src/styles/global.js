@@ -5,27 +5,22 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Roboto';
         src: url('https://fonts.googleapis.com/css?family=Montserrat|Roboto');
     }
-
     :root{
         --white:#fff
     }
-
     *{
         padding: 0;
         margin: 0;
         box-sizing: border-box;
         font-family: 'Roboto';
     }
-
     a{
         color: inherit;
         text-decoration: none;
     }
-
     .pointer{
         cursor: pointer;
     }
-
     .custom-scrollbar{
         &::-webkit-scrollbar {
             width: 8px;
@@ -33,7 +28,6 @@ const GlobalStyle = createGlobalStyle`
             background-color: #5454541a;
             border-radius: 10px;
         } 
-
         &::-webkit-scrollbar-thumb {
             border: 2px solid rgba(0,0,0,0);
             background-clip: padding-box;
