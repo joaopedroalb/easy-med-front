@@ -6,7 +6,17 @@ const GlobalStyle = createGlobalStyle`
         src: url('https://fonts.googleapis.com/css?family=Montserrat|Roboto');
     }
     :root{
-        --white:#fff
+        --white:#fff;
+        --blue:#3a86ff;
+        --dark-blue:#023e8a;
+        --black:#000;
+        --green:#06d6a0;
+        --red:#e71d36;
+        --gray:#626262;
+
+        --mobile-pixel:615px;
+        --tablet-pixel:920px;
+
     }
     *{
         padding: 0;
