@@ -21,7 +21,7 @@ export const LeftSide = styled.div`
     justify-content: flex-start;
     gap: 2rem;
     
-    padding: calc(15% + 20px) 0;
+    padding-top: 8.5rem;
 
     .title{
         margin: 0 calc(5% + 20px);
@@ -37,6 +37,7 @@ export const LeftSide = styled.div`
     @media ${DEVICE_RESPONSIVE_QUERY.tablet}{
         align-items: center;
         justify-content: center;
+        padding-top: 0;
     }
 `
 
