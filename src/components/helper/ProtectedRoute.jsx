@@ -5,5 +5,5 @@ import { UserContext } from '../../context/UserContext'
 export default function ProtectedRoute({children}) {
     const {user} = useContext(UserContext)
    
-    return (user !== null) ? <>{children}</>:<Navigate to="/login"/>
+    return (user !== null) ? <>{children}</>:<Navigate to="/"/>
 }
