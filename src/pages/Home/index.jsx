@@ -1,6 +1,12 @@
 import React from "react";
 import HeaderHome from "../../components/common/HeaderHome";
+import Footer from "../../components/common/Footer";
 import ImgHome from "../../assets/images/img_home_1.png";
+import ImgAttendance from "../../assets/images/img_atendimento.png";
+import BoxImg01 from "../../assets/images/box_img_home_01.png";
+import BoxImg02 from "../../assets/images/box_img_home_02.png";
+import BoxImg03 from "../../assets/images/box_img_home_03.png";
+
 import { BsWhatsapp } from "react-icons/Bs";
 import {
   Central,
@@ -12,14 +18,17 @@ import {
   DivTextTheme01,
   DivTextTheme02,
   DivImgsHomeContainer,
-  DivImgs,
   TextAttendance,
   DivAttendance,
   DivContact,
   DivImgContact,
-  DivFooterHome,
   TextContact,
   ButtonContact,
+  ImgContact,
+  ImgContainer,
+  TextImgContainer,
+  DivImgContainer,
+  TextImgContainerDif,
 } from "./style";
 
 export default function Home() {
@@ -52,25 +61,36 @@ export default function Home() {
         </DivTextTheme02>
 
         <DivImgsHomeContainer>
-          <DivImgs></DivImgs>
-          <DivImgs></DivImgs>
-          <DivImgs></DivImgs>
+          <DivImgContainer>
+            <ImgContainer src={BoxImg01} />
+            <TextImgContainer>Atendimento de qualidade.</TextImgContainer>
+          </DivImgContainer>
+          <DivImgContainer>
+            <ImgContainer src={BoxImg02} />
+            <TextImgContainer>Profissionais qualificados.</TextImgContainer>
+          </DivImgContainer>
+          <DivImgContainer>
+            <ImgContainer src={BoxImg03} />
+            <TextImgContainerDif>
+              Compromisso e responsabilidade com sua saúde.
+            </TextImgContainerDif>
+          </DivImgContainer>
         </DivImgsHomeContainer>
 
         <TextAttendance>Simplifique seu atendimento!</TextAttendance>
         <DivAttendance>
           <DivContact>
-            <TextContact>
-              Entre em contato<br></br>com a gente!
-            </TextContact>
+            <TextContact>Entre em contato com a gente!</TextContact>
             <ButtonContact>
-              <BsWhatsapp />
+              <BsWhatsapp size="24" />
               AGENDE SUA CONSULTA
             </ButtonContact>
           </DivContact>
-          <DivImgContact></DivImgContact>
+          <DivImgContact>
+            <ImgContact src={ImgAttendance} alt="Agende sua consulta" />
+          </DivImgContact>
         </DivAttendance>
-        <DivFooterHome></DivFooterHome>
+        <Footer></Footer>
       </Central>
     </>
   );

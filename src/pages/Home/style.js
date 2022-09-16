@@ -62,14 +62,41 @@ export const DivImgsHomeContainer = styled.div`
   height: 242px;
   background-color: var(--gray-100);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  gap: 120px;
 `
-export const DivImgs = styled.div`
-  width: 335px;
-  height: 160px;
-  background-color: white;
+export const DivImgContainer = styled.div`
+  position: relative;
 `
+
+export const ImgContainer = styled.img`
+  border: 1px solid var(--white);
+  border-radius: 15px;
+`
+export const TextImgContainer = styled.p`
+  position: absolute;
+  width: 169px;
+  height: 56px;
+  left: 17px;
+  top: 37px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  color: #A09AAC;
+`
+export const TextImgContainerDif = styled.p`
+  position: absolute;
+  width: 186px;
+  height: 115px;
+  left: 145px;
+  top: 26px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  color: #A09AAC;
+`
+
 export const TextAttendance = styled.p`
   margin-top: 60px;
   font-weight: 700;
@@ -80,41 +107,44 @@ export const TextAttendance = styled.p`
 export const DivAttendance = styled.div`
   width: 1080px;
   height: 380px;
-  background-color: lightblue;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 64px;
 `
 export const DivContact = styled.div`
-  width: 400px;
-  height: 180px;
-  background-color: orange;
 `
 export const TextContact = styled.p`
   font-style: normal;
   font-weight: 700;
-  font-size: 30px;
-  line-height: 36px;
+  font-size: 40px;
+  line-height: 40px;
   color: var(--black-alt);
   margin-bottom: 40px;
-`
-export const ButtonContact = styled.a`
-  padding: 32px 16px;
+  width: 400px
+  `
+export const ButtonContact = styled.button`
+  padding: 16px 32px;
+  border: none;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  color: var(--white);
   background-color: var(--dark-blue-700);
   border-radius: 40px;
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 `
 
 export const DivImgContact = styled.div`
   width: 400px;
   height: 380px;
-  background-color: orange;
 `
-
-export const DivFooterHome = styled.div`
-  width: 100%;
-  height: 270px;
-  margin-top: 90px;
-  background-color: var(--dark-blue-700);
+export const ImgContact = styled.img`
+  width: 575px;
+  height: 380px;
+  object-fit:  cover;
+  border-radius: 20px;
 `
