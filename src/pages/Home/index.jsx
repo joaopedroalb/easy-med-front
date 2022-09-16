@@ -1,9 +1,10 @@
 import React from 'react';
+import HeaderLogged from '../../components/common/HeaderLogged';
 
 export default function Home() {
   return (
-    <div>
-        Landing page
-    </div>
+    <>
+       <HeaderLogged></HeaderLogged>
+    </>
   )
 }

@@ -6,7 +6,6 @@ export const LoginBg = styled.div`
     min-height: 100vh;
     background-color: var(--blue);
     display: flex;
-    
 `
 
 export const LeftSide = styled.div`
