@@ -4,7 +4,7 @@ import { DEVICE_RESPONSIVE_QUERY } from "../../util/consts";
 export const LoginBg = styled.div`
     width: 100%;
     min-height: 100vh;
-    background-color: var(--blue);
+    background-color: var(--blue-400);
     display: flex;
     
 `
@@ -30,7 +30,7 @@ export const LeftSide = styled.div`
             font-size: 2.5rem;
         }
         strong{
-            color: var(--blue);
+            color: var(--blue-400);
         }
     }
 
@@ -70,6 +70,6 @@ export const NewAccountMessage = styled.p`
     color: var(--gray);
     a{
         cursor: pointer;
-        color: var(--blue);
+        color: var(--blue-400);
     }
 ` 

@@ -5,14 +5,25 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Roboto';
         src: url('https://fonts.googleapis.com/css?family=Montserrat|Roboto');
     }
+    @font-face {
+        font-family: 'Montserrat';
+        src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;1,700&display=swap');
+    }
+
     :root{
-        --white:#fff;
-        --blue:#3a86ff;
-        --dark-blue:#023e8a;
+        --absolut-white: #fff;
+        --white:#F7F8FA;
+        --blue-300: #40BFFF;
+        --blue-400:#3a86ff;
+        --dark-blue-700:#104E92;
+        --dark-blue-800:#023e8a;
         --black:#000;
+        --black-alt:#212529
         --green:#06d6a0;
         --red:#e71d36;
+        --gray-100: #DCE9E2;
         --gray:#626262;
+        
 
         --mobile-pixel:615px;
         --tablet-pixel:920px;
@@ -22,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: 'Roboto';
+        font-family: 'Montserrat';
     }
     a{
         color: inherit;
