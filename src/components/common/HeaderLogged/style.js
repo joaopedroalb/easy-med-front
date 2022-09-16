@@ -7,20 +7,25 @@ export const Header = styled.div`
   background-color: #104E92;
   height: 137px;
 
+
+  font-family: 'Montserrat', sans-serif;
   display: flex;
-  gap: 300px;
+  justify-content: space-between;
   align-items: center;
+  color: #AEDFFA;
 
-  a {
-    color: #FFFFFF;
-  }
-
-  div {
+  .middle {
     display: flex;
     gap: 114px;
+    justify-content: space-between;
+
+    font-size: 24px;
+
+    width: 274px;
   }
   
-  div + div {
+  .left {
+    display: flex;
     gap: 30px;
     align-items: center;
   }

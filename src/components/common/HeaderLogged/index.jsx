@@ -12,15 +12,16 @@ export default function HeaderLogged() {
       </a>
 
 
-      <div>
+      <div className='middle'>
         <a href="#">Home</a>
         <a href="#">Perfil</a>
       </div>
 
-      <div>
+      <div className='left'>
         <img src="https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png" alt="" />
         <a href="">
-          <img src="./src/assets/images/arrow-down-sign-to-navigate.png" alt="" />
+          <img src="./src/assets/images/arrow-down-sign-to-navigate.svg" alt="" />
+  
         </a>
       </div>
     </Header>
