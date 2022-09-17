@@ -90,8 +90,8 @@ export default function Home() {
             <ImgContact src={ImgAttendance} alt="Agende sua consulta" />
           </DivImgContact>
         </DivAttendance>
-        <Footer></Footer>
       </Central>
+      <Footer></Footer>
     </>
   );
 }

@@ -25,7 +25,11 @@ export const BUTTON_THEME = {
         color:'var(--white)',
     },
     blue:{
-        bg:'var(--blue)',
+        bg:'var(--blue-400)',
+        color:'var(--white)',
+    },
+    darkBlue:{
+        bg:'var(--dark-blue-800)',
         color:'var(--white)',
     },
     green:{

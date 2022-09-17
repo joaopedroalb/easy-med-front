@@ -32,9 +32,9 @@ export default function Login() {
             placeholder="Digite sua senha"
             type="password"
           />
-          <Button theme={BUTTON_THEME.blue}>Entrar</Button>
+          <Button theme={BUTTON_THEME.darkBlue}>Entrar</Button>
           <NewAccountMessage>
-            Ainda não tem cadastro ? <a>Clique aqui</a>
+            Ainda não tem cadastro? <a href="/cadastro-paciente">Clique aqui</a>
           </NewAccountMessage>
         </FormBg>
       </LeftSide>

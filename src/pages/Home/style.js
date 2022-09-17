@@ -107,10 +107,11 @@ export const TextAttendance = styled.p`
 export const DivAttendance = styled.div`
   width: 1080px;
   height: 380px;
+  margin: 64px 0 90px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 64px;
+
 `
 export const DivContact = styled.div`
 `

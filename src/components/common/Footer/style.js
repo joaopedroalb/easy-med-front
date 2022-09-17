@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const DivFooterHome = styled.div`
   width: 100%;
   height: 270px;
-  margin-top: 90px;
   background-color: var(--dark-blue-700);
   display: flex;
 `
@@ -28,4 +27,13 @@ export const DivFooterRight = styled.div`
   gap: 20px;
   align-items: center;
   color: var(--white);
+
+  .div-icons {
+    cursor: pointer;
+    transition: 500ms
+    
+  }
+  .div-icons:hover {
+    transform: scale(1.3);
+  }
 `

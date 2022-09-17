@@ -6,7 +6,7 @@ import {
   TextFooterLeft,
 } from "./style";
 import LogoImage from "../../../assets/images/svgs/logo_easy_med.svg";
-import { FiInstagram, FiYoutube, FiTwitter } from "react-icons/Fi";
+import { FiInstagram, FiYoutube, FiTwitter, FiLinkedin } from "react-icons/Fi";
 import { AiOutlineFacebook, AiOutlineWhatsApp } from "react-icons/Ai";
 
 export default function Footer() {
@@ -19,14 +19,14 @@ export default function Footer() {
           <TextFooterLeft>Todos os direitos reservados.</TextFooterLeft>
         </DivFooterLeft>
         <DivFooterRight>
-          <FiInstagram size="48px" />
-          <FiYoutube size="48px" />
-          <FiTwitter size="48px" />
-          <AiOutlineFacebook size="48px" />
-          <AiOutlineWhatsApp size="48px" />
+          <FiInstagram className="div-icons" size="48px" />
+          <FiYoutube className="div-icons" size="48px" />
+          <FiTwitter className="div-icons" size="48px" />
+          <FiLinkedin className="div-icons" size="48px" />
+          <AiOutlineFacebook className="div-icons" size="48px" />
+          <AiOutlineWhatsApp className="div-icons" size="48px" />
         </DivFooterRight>
       </DivFooterHome>
-      ;
     </>
   );
 }
