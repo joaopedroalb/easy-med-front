@@ -1,5 +1,4 @@
 import React from "react";
-import HeaderHome from "../../components/common/HeaderHome";
 import Footer from "../../components/common/Footer";
 import ImgHome from "../../assets/images/img_home_1.png";
 import ImgAttendance from "../../assets/images/img_atendimento.png";
@@ -7,7 +6,7 @@ import BoxImg01 from "../../assets/images/box_img_home_01.png";
 import BoxImg02 from "../../assets/images/box_img_home_02.png";
 import BoxImg03 from "../../assets/images/box_img_home_03.png";
 
-import { BsWhatsapp } from "react-icons/Bs";
+import { BsWhatsapp } from "react-icons/bs";
 import {
   Central,
   ImgCentral,
@@ -21,7 +20,6 @@ import {
   TextAttendance,
   DivAttendance,
   DivContact,
-  DivImgContact,
   TextContact,
   ButtonContact,
   ImgContact,
@@ -30,11 +28,11 @@ import {
   DivImgContainer,
   TextImgContainerDif,
 } from "./style";
+import LayoutPage from "../../components/layout/LayoutPage";
 
 export default function Home() {
   return (
-    <>
-      <HeaderHome></HeaderHome>
+    <LayoutPage>
       <Central>
         <ImgCentral
           src={ImgHome}
@@ -86,12 +84,10 @@ export default function Home() {
               AGENDE SUA CONSULTA
             </ButtonContact>
           </DivContact>
-          <DivImgContact>
-            <ImgContact src={ImgAttendance} alt="Agende sua consulta" />
-          </DivImgContact>
+          <ImgContact src={ImgAttendance} alt="Agende sua consulta" />
         </DivAttendance>
       </Central>
       <Footer></Footer>
-    </>
+    </LayoutPage>
   );
 }

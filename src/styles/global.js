@@ -13,14 +13,31 @@ const GlobalStyle = createGlobalStyle`
     :root{
         --absolut-white: #fff;
         --white:#F7F8FA;
-        --blue-300: #40BFFF;
-        --blue-400:#3a86ff;
+
+        --blue-100: #ACDECA;
+        --blue-200: #8BD0C1;
+        --blue-300: #6CC2BF;
+        --blue-400: #4DA3B2;
+        --blue-500: #2E7BA2;
+        --blue-600: #104E92;
+        --blue-700: #0C2B82;
+        --blue-800: #090E71;
+        --blue-900: #140660;
+        --blue-1000: #1F034E;
+
+        --green-blue-300: #40BFFF;
+        --green-blue-400:#3a86ff;
+
         --dark-blue-700:#104E92;
         --dark-blue-800:#023e8a;
+
         --black:#000;
         --black-alt:#212529;
+
         --green:#06d6a0;
+
         --red:#e71d36;
+
         --gray-100: #DCE9E2;
         --gray:#626262;
         

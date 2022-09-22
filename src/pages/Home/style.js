@@ -105,11 +105,11 @@ export const TextAttendance = styled.p`
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 export const DivAttendance = styled.div`
-  width: 1080px;
+  width: 100%;
   height: 380px;
   margin: 64px 0 90px 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 
 `
@@ -122,8 +122,8 @@ export const TextContact = styled.p`
   line-height: 40px;
   color: var(--black-alt);
   margin-bottom: 40px;
-  width: 400px
-  `
+  width: 400px;
+`
 export const ButtonContact = styled.button`
   padding: 16px 32px;
   border: none;
@@ -138,12 +138,8 @@ export const ButtonContact = styled.button`
   align-items: center;
   gap: 16px;
 `
-
-export const DivImgContact = styled.div`
-  width: 400px;
-  height: 380px;
-`
 export const ImgContact = styled.img`
+  max-width: 100%;
   width: 575px;
   height: 380px;
   object-fit:  cover;
