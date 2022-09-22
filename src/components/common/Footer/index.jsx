@@ -5,7 +5,7 @@ import {
   DivFooterRight,
   TextFooterLeft,
 } from "./style";
-import { FiInstagram, FiYoutube, FiTwitter, FiLinkedin } from "react-icons/Fi";
+import { FiInstagram, FiYoutube, FiTwitter, FiLinkedin } from "react-icons/fi";
 import { AiOutlineFacebook, AiOutlineWhatsApp } from "react-icons/Ai";
 
 export default function Footer() {
