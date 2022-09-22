@@ -6,7 +6,7 @@ import {
   TextFooterLeft,
 } from "./style";
 import { FiInstagram, FiYoutube, FiTwitter, FiLinkedin } from "react-icons/fi";
-import { AiOutlineFacebook, AiOutlineWhatsApp } from "react-icons/Ai";
+import { AiOutlineFacebook, AiOutlineWhatsApp } from "react-icons/ai";
 
 export default function Footer() {
   return (
