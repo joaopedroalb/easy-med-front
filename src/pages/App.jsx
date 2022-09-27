@@ -3,6 +3,7 @@ import ProtectedRoute from "../components/helper/ProtectedRoute";
 import Home from "./Home";
 import Login from "./Login";
 import PatientRecord from "./PatientRecord";
+import PatientProfile from "./Profile/Patient/PatientProfile";
 
 function App() {
   return (
@@ -12,6 +13,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="login/*" element={<Login />} />
           <Route path="cadastro-paciente/*" element={<PatientRecord />} />
+          <Route path="profile/" element={
+            <ProtectedRoute>
+              <PatientProfile/>
+            </ProtectedRoute>
+          } />
         </Routes>
       </BrowserRouter>
     </div>
