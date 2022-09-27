@@ -18,12 +18,13 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
 
   const [user,setUser] = useState({name: '', password: ''})
-  const {userLogin} = useContext(UserContext)
+  const {userLogin, mockInfoLogin} = useContext(UserContext)
   const navigate = useNavigate()
 
   const MOCK_LOGIN = (event) =>{
     event.preventDefault()
     userLogin(1,user.name,user.name,'email@email.com',false)
+    mockInfoLogin(`${user.name.replaceAll(' ','')}@gmail.com`,user.password)
     navigate('/profile')
   } 
 
