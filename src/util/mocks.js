@@ -1,15 +1,16 @@
 export const MOCK_USER = {
     general:{
         height:'1.65',
-        weigth:'56',
+        weight:'56',
         agreement:'Unimed'
     },
     patient:{
-        admission:'22/09/2022',
+        admission:new Date().toLocaleDateString('en-CA'),
         genre:'M'
     },
     login:{
         email:'email@mock.com',
-        password:'password123'
+        password:'password123',
+        photo:''
     }
 }
