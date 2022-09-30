@@ -9,4 +9,11 @@ export const LayoutContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    background-color: var(--white);
+`
+
+export const PageContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 `

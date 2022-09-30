@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useState } from 'react'
 import { UserContext } from '../../../context/UserContext'
 import HeaderHome from '../Headers/HeaderHome'
 import HeaderLogged from '../Headers/HeaderLogged'
-import { LayoutContainer } from './style'
+import { LayoutContainer, PageContainer } from './style'
 
 const USER_STATUS = {
     NONE: 'none',
@@ -43,7 +43,9 @@ export default function LayoutPage({children}) {
     return (
         <LayoutContainer>
             <RenderHeader/>
-            {children}
+            <PageContainer className='custom-scrollbar'>
+                {children}
+            </PageContainer>
         </LayoutContainer>
     )
 }

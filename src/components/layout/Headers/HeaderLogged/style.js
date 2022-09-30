@@ -3,35 +3,28 @@ import styled from "styled-components";
 
 export const Header = styled.div`
   width: 100%;
-  padding: 0 34px;
-  background-color: #104E92;
-  height: 137px;
-
+  height: 100px;
+  padding: 12px 20px;
   display: flex;
-  gap: 300px;
   align-items: center;
+  justify-content: space-between;
+  background-color: var(--blue-600);
+  color: var(--white);
+`
 
-  a {
-    color: #FFFFFF;
-  }
+export const TitleLogo = styled.h1`
+  font-style: italic;
+  font-size: 2.5rem;
+`
 
-  div {
-    display: flex;
-    gap: 114px;
-  }
-  
-  div + div {
-    gap: 30px;
-    align-items: center;
-  }
+export const NavContainer = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 40px;
+`
 
-  img {
-    width: 100px;
-    height: 100px;
-  }
-
-  a img {
-    width: 30px;
-    height: 30px;
-  }
+export const UserActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
 `
