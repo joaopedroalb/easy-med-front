@@ -104,6 +104,14 @@ function FormsPatient() {
                             onChange={({target})=>handleChangeUserData(target.value, 'login', 'password')}
                         />
                     </InputRow>
+                    <InputRow>
+                        <label>Foto: </label>
+                        <input disabled={isDisable}
+                            value={userData.login.photo} 
+                            type='text' 
+                            onChange={({target})=>handleChangeUserData(target.value, 'login', 'photo')}
+                        />
+                    </InputRow>
                 </ColumnInputContent>
 
             </InputsContainer>
