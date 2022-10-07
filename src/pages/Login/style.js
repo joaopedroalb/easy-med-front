@@ -73,3 +73,8 @@ export const NewAccountMessage = styled.p`
         color: var(--blue-400);
     }
 ` 
+
+export const ErrorMessage = styled.p`
+    font-weight: 600;
+    color: var(--red);
+`

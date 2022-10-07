@@ -9,23 +9,59 @@ import {
   RightSide,
   DivPasswords,
 } from "./style";
-import Button from "../../components/common/Button";
-import ButtonLg from "../../components/common/ButtonLg";
 
+import Button from "../../components/common/Button";
 import BG_URL from "../../assets/images/login_bg.jpg";
 import { BUTTON_THEME } from "../../util/consts";
+import { useState } from "react";
+import { PatientService } from '../../services/patient/PatientService'
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function PatientRecord() {
+
+  const {userLogin} = useContext(UserContext)
+
+  const [newUser,setNewUser] = useState({
+    name:'',
+    cpf:'',
+    phone:'',
+    email:'',
+    password:''
+  })
+
+  const [confirmPassword,setConfirmPassword] = useState('')
+  const navigate = useNavigate()
+
+  const handleChangeUserValue = (value,property) =>{
+    setNewUser({...newUser, [property]:value})
+  }
+
+  const handleSubmit = async (event) =>{
+    event.preventDefault()
+    if(newUser.password !== confirmPassword) return
+
+    const result = await PatientService.create(newUser)
+
+    if(result.error) return
+
+    const {id, name, email} = result.data
+    userLogin(id,name,email)
+    navigate('/profile')
+  }
+
   return (
     <RecordBg>
       <LeftSide>
         <h1 className="title">
           Cadastre-se como <strong>paciente</strong>
         </h1>
-        <FormRecordBg>
+        <FormRecordBg onSubmit={handleSubmit}>
           <Input
             label="Nome"
             name="user_name"
+            handleBlur={({target})=>handleChangeUserValue(target.value, 'name')}
             placeholder="Digite seu nome completo"
             type="text"
             required
@@ -33,6 +69,7 @@ export default function PatientRecord() {
           <Input
             label="CPF"
             name="cpf"
+            handleBlur={({target})=>handleChangeUserValue(target.value, 'cpf')}
             placeholder="Digite seu CPF"
             type="text"
             required
@@ -40,15 +77,17 @@ export default function PatientRecord() {
           <Input
             label="Telefone"
             name="telefone"
+            handleBlur={({target})=>handleChangeUserValue(target.value, 'phone')}
             placeholder="Digite seu telefone"
-            type="tel"
+            type="phone"
             required
           />
           <Input
             label="E-mail"
             name="email"
+            handleBlur={({target})=>handleChangeUserValue(target.value, 'email')}
             placeholder="Digite seu E-mail"
-            type="mail"
+            type="email"
             required
           />
           <DivPasswords>
@@ -57,11 +96,15 @@ export default function PatientRecord() {
               name="password_user"
               placeholder="Digite sua senha"
               type="password"
+              handleChange={({target})=>handleChangeUserValue(target.value, 'password')}
+              value={newUser.password}
               required
             />
             <InputPass
               label="Senha"
               name="password_user"
+              handleChange={({target})=>setConfirmPassword(target.value)}
+              value={confirmPassword}
               placeholder="Digite sua senha"
               type="password"
               required
@@ -74,12 +117,6 @@ export default function PatientRecord() {
         </FormRecordBg>
       </LeftSide>
       <RightSide urlBg={BG_URL}>
-        <ButtonLg className="btn-right" theme={BUTTON_THEME.darkBlue}>
-          Cadastre-se como Administrador
-        </ButtonLg>
-        <ButtonLg className="btn-right" theme={BUTTON_THEME.darkBlue}>
-          Cadastre-se como Médico
-        </ButtonLg>
       </RightSide>
     </RecordBg>
   );
