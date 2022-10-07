@@ -8,17 +8,17 @@ import { HeaderProfileContent, RowContent } from './style';
 
 const IMAGE_DEFAULT = 'https://cdn.discordapp.com/attachments/469630958811742212/1022924520002158624/unknown.png'
 
-function HeaderProfile({title, hasBack = false, name}) {
-  const {mocksInfo} = useContext(UserContext)
+function HeaderProfile({title, hasBack = false, name, photoUrl}) {
 
-  const [photo, setPhoto] = useState(mocksInfo.login.photo)
+  const [photo, setPhoto] = useState(photoUrl)
   const onError = () => setPhoto(IMAGE_DEFAULT);
   const imageChange = () => {
-    setPhoto(mocksInfo.login.photo)
+    setPhoto(photoUrl)
   }
   useEffect(()=>{
+    console.log(photoUrl)
     imageChange()
-  },[mocksInfo.login.photo])
+  },[photoUrl])
 
   return (
     <HeaderProfileContent>

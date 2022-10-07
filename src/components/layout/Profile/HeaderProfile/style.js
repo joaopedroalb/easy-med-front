@@ -13,6 +13,7 @@ export const HeaderProfileContent = styled.header`
     img{
         position: absolute;
         width: 230px;
+        height: 220px;
         max-width: 80%;
         object-fit: cover;
         border-radius: 50%;

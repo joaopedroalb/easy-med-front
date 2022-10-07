@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ErrorMessage,
   FormBg,
   LeftSide,
   LoginBg,
@@ -14,19 +15,26 @@ import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { AuthService } from "../../services/auth/AuthService";
 
 export default function Login() {
 
-  const [user,setUser] = useState({name: '', password: ''})
-  const {userLogin, mockInfoLogin} = useContext(UserContext)
+  const [user,setUser] = useState({email: '', password: ''})
+  const [loginError, setLoginError] = useState(false)
+  const {userLogin} = useContext(UserContext)
   const navigate = useNavigate()
 
-  const MOCK_LOGIN = (event) =>{
+  const handleLogin = async (event) =>{
     event.preventDefault()
-    userLogin(1,user.name,user.name,'email@email.com',false)
-    mockInfoLogin(`${user.name.replaceAll(' ','')}@gmail.com`,user.password)
+    const result = await AuthService.login(user.email, user.password)
+    setLoginError(result.error)
+    if(result.error)
+      return 
+
+    const {id, name, email} = result.data
+    userLogin(id, name, email)
     navigate('/profile')
-  } 
+  }
 
   return (
     <LoginBg>
@@ -34,13 +42,13 @@ export default function Login() {
         <h1 className="title">
           Easy <strong>M</strong>ed
         </h1>
-        <FormBg onSubmit={MOCK_LOGIN}>
+        <FormBg onSubmit={handleLogin}>
           <Input
             label="Nome de usuário"
-            name="login_user"
+            name="email_user"
             placeholder="Digite seu nome de usuário"
-            type="text"
-            handleBlur={({target})=>setUser({...user, name: target.value})}
+            type="email"
+            handleBlur={({target})=>setUser({...user, email: target.value})}
           />
 
           <Input
@@ -51,6 +59,9 @@ export default function Login() {
             handleBlur={({target})=>setUser({...user, password: target.value})}
           />
           <Button theme={BUTTON_THEME.darkBlue}>Entrar</Button>
+          {
+            loginError && <ErrorMessage>Email ou Senha está incorreta</ErrorMessage>
+          }
           <NewAccountMessage>
             Ainda não tem cadastro? <a href="/cadastro-paciente">Clique aqui</a>
           </NewAccountMessage>
