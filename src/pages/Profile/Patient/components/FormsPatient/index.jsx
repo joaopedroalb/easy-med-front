@@ -1,39 +1,36 @@
 import React from 'react';
 import { useState } from 'react';
+import { PatientService } from '../../../../../services/patient/PatientService';
 
 import { ColumnInputContent, FormContainer, InputRow, InputsContainer, FooterContent, ButtonAction } from './style';
-import { useContext } from 'react';
-import { UserContext } from '../../../../../context/UserContext';
 
-function FormsPatient() {
+function FormsPatient({userData, changeUserData}) {
     const [isDisable, setIsDisable] = useState(true)
-    const {mocksInfo, setNewMockInfos} = useContext(UserContext)
+    const [editUser, setEditUser] = useState(userData)
 
-    const [userData,setUserData] = useState({
-        general:mocksInfo.general,
-        patient:mocksInfo.patient,
-        login:mocksInfo.login
-    })
-
-    console.log(mocksInfo.patient.admission)
-
-    const handleChangeUserData = (value, type, property ) =>{
-        setUserData({...userData, [type]:{...userData[type],[property]:value} })
+    const handleChangeeditUser = (value, property ) =>{
+        setEditUser({...editUser, [property]:value})
     }  
 
     const sizesValidate = (size, min, max) => size <= max && size >= min
 
     const validation = () =>{
-        if(!sizesValidate(userData.general.height, 1, 2.5) || !sizesValidate(userData.general.weight,25, 220)) return false
-        if(!userData.general.agreement || !userData.login.email || !userData.login.password) return false
+        if(!sizesValidate(editUser.height, 1, 2.5) || !sizesValidate(editUser.weight,25, 220)) return false
+        if(!editUser.email) return false
         return true
     }
 
-    const handleSave = () =>{
+    const handleSave = async () =>{
         if(!validation) return null
 
-        setNewMockInfos(userData)
+        const result = await PatientService.updateById(editUser.id, editUser)
+        if(!result.error) changeUserData(result.data)
         setIsDisable(true)
+    }
+
+    const getDate  = (value) => {
+        const date = new Date(value)
+        return date.toLocaleDateString('pt-BR')
     }
 
     return (
@@ -44,44 +41,43 @@ function FormsPatient() {
                     <InputRow>
                         <label>Altura: </label>
                         <input disabled={isDisable} 
-                            value={userData.general.height} 
+                            value={editUser.height} 
                             type='number' 
-                            onChange={({target})=>handleChangeUserData(target.value, 'general', 'height')}
+                            onChange={({target})=>handleChangeeditUser(target.value, 'height')}
                         />
                     </InputRow>
                     <InputRow>
                         <label>Peso: </label>
                         <input disabled={isDisable} 
-                            value={userData.general.weight} 
+                            value={editUser.weight} 
                             type='number' 
-                            onChange={({target})=>handleChangeUserData(target.value, 'general', 'weight')}
+                            onChange={({target})=>handleChangeeditUser(target.value, 'weight')}
                         />
                     </InputRow>
-                    <InputRow>
+                    {/* <InputRow>
                         <label>Convênio: </label>
                         <input disabled={isDisable} 
-                            value={userData.general.agreement} 
-                            onChange={({target})=>handleChangeUserData(target.value, 'general', 'agreement')}
-                    />
-                    </InputRow>
+                            value={editUser.agreement} 
+                            onChange={({target})=>handleChangeeditUser(target.value, 'agreement')}
+                        />
+                    </InputRow> */}
                 </ColumnInputContent>
                 
                 <ColumnInputContent>
                     <h1 className='title-column'>Dados Paciente</h1>
                     <InputRow>
                         <label>Admissão: </label>
-                        <input disabled={isDisable}
-                            value={userData.patient.admission} 
-                            type='date' 
-                            onChange={({target})=>handleChangeUserData(target.value, 'patient', 'admission')}
+                        <input disabled
+                            defaultValue={getDate(editUser.createdAt)} 
+                            type="text" 
                         />
                     </InputRow>
                     <InputRow>
                         <label>Gênero: </label>
                         <input disabled={isDisable}
-                            value={userData.patient.genre} 
+                            value={editUser.gender} 
                             type='text' 
-                            onChange={({target})=>handleChangeUserData(target.value, 'patient', 'genre')}
+                            onChange={({target})=>handleChangeeditUser(target.value, 'gender')}
                         />
                     </InputRow>
                 </ColumnInputContent>
@@ -91,25 +87,25 @@ function FormsPatient() {
                     <InputRow>
                         <label>E-mail: </label>
                         <input disabled={isDisable}
-                            value={userData.login.email} 
+                            value={editUser.email} 
                             type='text' 
-                            onChange={({target})=>handleChangeUserData(target.value, 'login', 'email')}
+                            onChange={({target})=>handleChangeeditUser(target.value, 'email')}
                         />
                     </InputRow>
-                    <InputRow>
+                    {/* <InputRow>
                         <label>Senha: </label>
                         <input disabled={isDisable}
-                            value={userData.login.password} 
+                            value={editUser.password} 
                             type='text' 
-                            onChange={({target})=>handleChangeUserData(target.value, 'login', 'password')}
+                            onChange={({target})=>handleChangeeditUser(target.value, 'password')}
                         />
-                    </InputRow>
+                    </InputRow> */}
                     <InputRow>
                         <label>Foto: </label>
                         <input disabled={isDisable}
-                            value={userData.login.photo} 
+                            value={editUser.pictureUrl} 
                             type='text' 
-                            onChange={({target})=>handleChangeUserData(target.value, 'login', 'photo')}
+                            onChange={({target})=>handleChangeeditUser(target.value, 'pictureUrl')}
                         />
                     </InputRow>
                 </ColumnInputContent>
