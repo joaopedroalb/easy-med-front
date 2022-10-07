@@ -11,8 +11,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="login/*" element={<Login />} />
-          <Route path="cadastro-paciente/*" element={<PatientRecord />} />
+          <Route path="signin/*" element={<Login />} />
+          <Route path="signup/*" element={<PatientRecord />} />
           <Route path="profile/" element={
             <ProtectedRoute>
               <PatientProfile/>

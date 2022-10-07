@@ -14,7 +14,7 @@ import { BUTTON_THEME } from "../../util/consts";
 import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/auth/AuthService";
 
 export default function Login() {
@@ -63,7 +63,7 @@ export default function Login() {
             loginError && <ErrorMessage>Email ou Senha está incorreta</ErrorMessage>
           }
           <NewAccountMessage>
-            Ainda não tem cadastro? <a href="/cadastro-paciente">Clique aqui</a>
+            Ainda não tem cadastro? <Link to="/signup">Clique aqui</Link>
           </NewAccountMessage>
         </FormBg>
       </LeftSide>

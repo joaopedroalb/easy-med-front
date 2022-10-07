@@ -17,7 +17,7 @@ import { useState } from "react";
 import { PatientService } from '../../services/patient/PatientService'
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function PatientRecord() {
 
@@ -112,7 +112,7 @@ export default function PatientRecord() {
           </DivPasswords>
           <Button theme={BUTTON_THEME.darkBlue}>Cadastrar</Button>
           <ExistingAccountMessage>
-            Já tem cadastro? <a href="/login">Clique aqui</a> para fazer login
+            Já tem cadastro? <Link to="/signin">Clique aqui</Link> para fazer login
           </ExistingAccountMessage>
         </FormRecordBg>
       </LeftSide>

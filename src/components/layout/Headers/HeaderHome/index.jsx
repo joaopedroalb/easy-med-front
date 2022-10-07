@@ -7,7 +7,7 @@ export default function HomeHeader() {
     <>
       <Header>
         <TitleLogo>EasyMed</TitleLogo>
-        <Link to='/login'>
+        <Link to='/signin'>
           <ButtonLogin>
             <p className="text-btn">Entrar</p> 
             <IconContent>
