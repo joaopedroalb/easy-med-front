@@ -1,8 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
+import Dropdown from '../../../../../components/common/Dropdown';
 import { PatientService } from '../../../../../services/patient/PatientService';
 
 import { ColumnInputContent, FormContainer, InputRow, InputsContainer, FooterContent, ButtonAction } from './style';
+
+const GENDER_OPTIONS = [
+    {value:'male', title: 'Masculino'},
+    {value:'female', title: 'Feminino'},
+    {value:'other', title: 'Outro'},
+]
 
 function FormsPatient({userData, changeUserData}) {
     const [isDisable, setIsDisable] = useState(true)
@@ -74,10 +81,11 @@ function FormsPatient({userData, changeUserData}) {
                     </InputRow>
                     <InputRow>
                         <label>Gênero: </label>
-                        <input disabled={isDisable}
-                            value={editUser.gender} 
-                            type='text' 
-                            onChange={({target})=>handleChangeeditUser(target.value, 'gender')}
+                        <Dropdown 
+                            options={GENDER_OPTIONS}
+                            currentValue={editUser.gender}
+                            handleChange={(value)=>{handleChangeeditUser(value,'gender')}}
+                            disabled={isDisable}
                         />
                     </InputRow>
                 </ColumnInputContent>

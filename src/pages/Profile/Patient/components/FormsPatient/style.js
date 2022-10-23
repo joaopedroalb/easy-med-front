@@ -45,6 +45,11 @@ export const FormContainer = styled.form`
       padding: .5rem;
       border: none;
       border-radius: 15px;
+      font-weight: bold;
+
+      &:disabled{
+        font-weight: normal;
+      }
    }
  `
 
