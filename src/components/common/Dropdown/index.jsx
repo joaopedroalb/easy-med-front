@@ -22,8 +22,8 @@ function Dropdown({options, currentValue, handleChange, placeholder = 'Selecione
     }
 
     return (
-        <DropdownContainer className={className} disabled={disabled}>
-            <p onClick={handleOpen} className='title'>
+        <DropdownContainer className={className} disabled={disabled} onClick={handleOpen}>
+            <p className='title'>
                 {currentValue ? getTitleByValue(currentValue) :placeholder}
             </p>
             {
