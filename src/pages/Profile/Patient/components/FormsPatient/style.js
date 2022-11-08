@@ -17,6 +17,7 @@ export const FormContainer = styled.form`
    justify-content: center;
    gap: 10rem;
    padding: 0 5rem;
+   flex-wrap: wrap;
  `
  
  export const ColumnInputContent = styled.div`

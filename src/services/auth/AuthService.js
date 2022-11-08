@@ -20,9 +20,9 @@ const authUser = async (token) => {
         return new ApiException('Erro token não existe')
 
     try {
-        const { data } = await Api().post("/auth", { token });
-        return { data: data, error: false };
-        localStorage.setItem('token',data.token)
+        const { data } = await Api().post("/auth", { token })
+        //localStorage.setItem('token',data.token)
+        return { data: data, error: false }
     } catch (e) {
         return new ApiException(err.message || "Erro na tentativa da Autenticação.");
     }

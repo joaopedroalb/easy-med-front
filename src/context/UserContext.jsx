@@ -31,8 +31,7 @@ export const UserProvider = ({children}) =>{
 
             if(res.error) 
                 return null
-    
-            console.log(res.data)
+                
             const {id, name, email} = res.data
             userLogin(id, name, email)
         } catch (e) {

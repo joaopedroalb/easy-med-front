@@ -16,7 +16,6 @@ function HeaderProfile({title, hasBack = false, name, photoUrl}) {
     setPhoto(photoUrl)
   }
   useEffect(()=>{
-    console.log(photoUrl)
     imageChange()
   },[photoUrl])
 

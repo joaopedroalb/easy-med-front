@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import useOutsideEvent from '../../../hooks/useOutsideEvent';
 import { DropdownContainer, OptionsContainer } from './style';
 
 function Dropdown({options, currentValue, handleChange, placeholder = 'Selecione', disabled, className}) {
     const [showOptions, setShowOptions] = useState(false)
 
-    console.log(options)
+    const wrapper = useRef(null)
+    useOutsideEvent(wrapper, ()=>setShowOptions(false))
 
     const handleOpen = () => {
         if(disabled) return
-        setShowOptions(value=>!value)
+        setShowOptions(true)
     }
 
-    const handleSelect = (value) => {
+    const handleSelect = (event, value) => {
+        event.stopPropagation()
         handleChange(value)
         setShowOptions(false)
     }
@@ -22,7 +25,7 @@ function Dropdown({options, currentValue, handleChange, placeholder = 'Selecione
     }
 
     return (
-        <DropdownContainer className={className} disabled={disabled} onClick={handleOpen}>
+        <DropdownContainer className={className} disabled={disabled} onClick={handleOpen} ref={wrapper}>
             <p className='title'>
                 {currentValue ? getTitleByValue(currentValue) :placeholder}
             </p>
@@ -31,7 +34,7 @@ function Dropdown({options, currentValue, handleChange, placeholder = 'Selecione
                     <OptionsContainer>
                         {
                             options.map(option => {
-                                return <p key={option.value} onClick={()=>handleSelect(option.value)} className='option'>
+                                return <p key={option.value} onClick={(event)=>handleSelect(event,option.value)} className='option'>
                                             {option.title}
                                         </p>
                             })

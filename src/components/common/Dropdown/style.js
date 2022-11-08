@@ -26,9 +26,10 @@ export const OptionsContainer = styled.div`
     background: var(--white);
     width: 100%;
     border: 1px solid #00000029;
-    border-radius: 8px;
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
+    z-index: 2;
     top: 35px;
     left: 0;
 

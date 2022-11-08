@@ -10,6 +10,7 @@ const create = async (newPatient) => {
             email: newPatient.email,
             password: newPatient.password
         })
+        localStorage.setItem('token',data.token)
         return {data: data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao criar paciente.')
@@ -45,8 +46,39 @@ const updateById = async (idPatient, updatePatient) => {
     }
 }
 
+const getAllergiesById = async (idPatient) => {
+    try{
+        const { data } = await Api().get(`/patients/allergies/${idPatient}`)
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao buscar paciente.')
+    }
+    
+}
+
+const getConditionsById = async (idPatient) => {
+    try{
+        const { data } = await Api().get(`/patients/conditions/${idPatient}`)
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao buscar paciente.')
+    }
+}
+
+const getMedicationsById = async (idPatient) => {
+    try{
+        const { data } = await Api().get(`/patients/medications/${idPatient}`)
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao buscar paciente.')
+    }
+}   
+
 export const PatientService = {
     getById,
     create,
-    updateById
+    updateById,
+    getAllergiesById,
+    getConditionsById,
+    getMedicationsById
 }
