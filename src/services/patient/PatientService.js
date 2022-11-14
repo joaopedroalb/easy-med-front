@@ -95,12 +95,10 @@ const getConditionsById = async (idPatient) => {
 }
 
 const deleteConditionById = async (idCondition) => {
-    console.log(idCondition)
     try{
         const { data } = await Api().delete('/patients/conditions',{
             idRelation: idCondition
         })
-        console.log(data)
         return {data:data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao deletar doença')

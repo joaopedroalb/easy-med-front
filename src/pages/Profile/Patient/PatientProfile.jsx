@@ -10,6 +10,7 @@ import { useDisableBodyScroll } from '../../../hooks/useDisableBodyScroll';
 import InfoList from './components/InfoList';
 import { INFO_TYPES } from '../../../util/consts/types';
 import { CommonService } from '../../../services/common/CommonService';
+import Loading from '../../../components/common/Loading';
 
 
 export default function PatientProfile() {
@@ -67,14 +68,20 @@ export default function PatientProfile() {
     }
     setUserData(result.data)
 
-    getUserInfos()
-    getOptionsList()
+    try{
+      getUserInfos()
+      getOptionsList()
+
+    }catch(err){
+
+    }finally{
+      setLoading(false)
+    }
 
   },[user])
 
   useEffect(()=>{
     getData()
-    setLoading(false)
 },[])
 
   const openModalByType = (type) => {
@@ -118,9 +125,9 @@ export default function PatientProfile() {
   }
 
   const RenderBody = () => {
+    console.log(loading)
     if(loading) 
-      return
-        <div>Loading</div>
+      return <Loading />
 
     if(userData === null)
       return <div>Error</div>

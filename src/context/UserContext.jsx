@@ -8,14 +8,19 @@ export const UserProvider = ({children}) =>{
     const [loadingAuth, setLoadingAuth] = useState(true)
     const [user,setUser] = useState(null)
 
-    const userLogin = (id,name,email,isDoctor=false) =>{
-        setUser({id,name,email,isDoctor})
+    const userLogin = (id,name,email,isDoctor=false, pictureUrl) =>{
+        setUser({id,name,email,isDoctor,pictureUrl})
     } 
 
     const userIsDoctor = () => {
         if(!user) return false
 
         return user.isDoctor
+    }
+
+    const userLogout = () => {
+        setUser(null)
+        localStorage.removeItem('token')
     }
 
     const userAuth = useCallback(async () => {
@@ -32,8 +37,8 @@ export const UserProvider = ({children}) =>{
             if(res.error) 
                 return null
                 
-            const {id, name, email} = res.data
-            userLogin(id, name, email)
+            const {id, name, email, pictureUrl} = res.data
+            userLogin(id, name, email,false,pictureUrl)
         } catch (e) {
 
         } finally {
@@ -49,7 +54,7 @@ export const UserProvider = ({children}) =>{
     },[])
 
     return(
-        <UserContext.Provider value={{user,userLogin,userIsDoctor, loadingAuth}}>
+        <UserContext.Provider value={{user,userLogin,userIsDoctor, loadingAuth, userLogout}}>
             {children}
         </UserContext.Provider>
     )

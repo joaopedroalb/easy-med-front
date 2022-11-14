@@ -46,8 +46,8 @@ export default function PatientRecord() {
 
     if(result.error) return
 
-    const {id, name, email} = result.data
-    userLogin(id,name,email)
+    const {id, name, email, pictureUrl} = result.data
+    userLogin(id,name,email, false, pictureUrl)
     navigate('/profile')
   }
 
