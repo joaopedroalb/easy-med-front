@@ -8,6 +8,7 @@ export const InfoCardContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1.5rem;
+    min-height: 250px;
 
     background-color: ${({theme}) => theme ==='dark' ? '#85c3e159':'var(--white)'};
 

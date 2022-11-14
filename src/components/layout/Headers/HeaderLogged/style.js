@@ -39,8 +39,12 @@ export const UserActions = styled.div`
     background-color: transparent;
 
     p{
-      font-size: 1.05rem;
+      font-size: .95rem;
       font-weight: 600;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     img{
