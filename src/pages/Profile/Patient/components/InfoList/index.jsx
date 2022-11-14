@@ -3,13 +3,13 @@ import InfoCard from '../InfoCard'
 import {AiOutlinePlusCircle} from 'react-icons/ai'
 import { InfoCardContainer } from './style'
 
-export default function InfoList({title, list, isCrud=false, crudActions, typeInfo, hasDescription}) {
+export default function InfoList({title, list, isCrud=false, crudActions, typeInfo, hasDescription, theme='dark'}) {
     const {handleCreate, handleDelete, handleUpdate} = crudActions
 
     const validList = list && list.length > 0
 
     return (
-        <InfoCardContainer>
+        <InfoCardContainer theme={theme} >
             <h1 className='title-content'>{title}</h1>
             {
                 validList ? (
@@ -28,7 +28,7 @@ export default function InfoList({title, list, isCrud=false, crudActions, typeIn
                         )
                     })
                 ) : (
-                    <h2>Não contém {title}</h2>
+                    <h2 className='title-content' style={{color:'var(--red)'}}>Não contém {title}</h2>
                 )
             }
     

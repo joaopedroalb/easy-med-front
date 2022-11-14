@@ -149,6 +149,7 @@ export default function PatientProfile() {
             handleUpdate: handleUpdate
           }}
           hasDescription={false}
+          theme='dark'
         />
 
         <InfoList 
@@ -162,6 +163,7 @@ export default function PatientProfile() {
             handleUpdate: handleUpdate
           }}
           hasDescription
+          theme='white'
         />
 
         <InfoList 
@@ -175,6 +177,7 @@ export default function PatientProfile() {
             handleUpdate: handleUpdate
           }}
           hasDescription={true}
+          theme='dark'
         />
 
         <InfoList 
@@ -188,6 +191,7 @@ export default function PatientProfile() {
             handleUpdate: handleUpdate
           }}
           hasDescription={true}
+          theme='white'
         />
       </>
     )

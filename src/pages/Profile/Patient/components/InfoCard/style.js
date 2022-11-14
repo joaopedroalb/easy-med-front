@@ -17,6 +17,7 @@ const IconTypeColor =  type => {
 }
 
 export const InfoCardBg = styled.div`
+    background-color: var(--white);
     width: 100%;
     max-width: 1400px;
     padding: 18px;

@@ -9,6 +9,8 @@ export const InfoCardContainer = styled.div`
     justify-content: center;
     gap: 1.5rem;
 
+    background-color: ${({theme}) => theme ==='dark' ? '#d3d3d3':'var(--white)'};
+
     .title-content, .insert-row{
         width: 100%;
         max-width: 1400px;
@@ -25,7 +27,7 @@ export const InfoCardContainer = styled.div`
         align-items: center;
         justify-content: flex-start;
         gap: .35rem;
-        background-color: var(--white);
+        background-color: transparent;
         padding: 8px;
         border-radius: 4px;
         width: fit-content;
@@ -34,7 +36,8 @@ export const InfoCardContainer = styled.div`
         transition: 400ms;
 
         &:hover{
-            background-color: #dddddd;
+            opacity: 0.95;
+            background-color: ${({theme}) => theme ==='dark' ? '#0000000d':'#0000001c'};
         }
 
         p{
