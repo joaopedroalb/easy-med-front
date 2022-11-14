@@ -9,7 +9,7 @@ export const InfoCardContainer = styled.div`
     justify-content: center;
     gap: 1.5rem;
 
-    background-color: ${({theme}) => theme ==='dark' ? '#d3d3d3':'var(--white)'};
+    background-color: ${({theme}) => theme ==='dark' ? '#85c3e159':'var(--white)'};
 
     .title-content, .insert-row{
         width: 100%;

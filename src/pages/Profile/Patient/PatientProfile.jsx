@@ -83,8 +83,12 @@ export default function PatientProfile() {
 
   const closeModalType = () => setInfoModal({open:false, type:''})
 
-  const handleDeleteInfo = (id, type) => {
-  
+  const handleDeleteInfo = async (id, type) => {
+    if(type === INFO_TYPES.HEREDITARY){
+      const result = await PatientService.deleteConditionById(id)
+      if(!result.error) await getUserInfos()
+      return !result.error
+    }
   }
   
   const handleUpdate = (id,type) => {

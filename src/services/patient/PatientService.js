@@ -46,6 +46,7 @@ const updateById = async (idPatient, updatePatient) => {
     }
 }
 
+
 const createAllergyById = async (idPatient, allergyData) => {
     try{
         const { data } = await Api().post(`/patients/allergies/${idPatient}`, {
@@ -67,6 +68,7 @@ const getAllergiesById = async (idPatient) => {
         return new ApiException(err.message || 'Erro ao buscar paciente.')
     }
 }
+
 
 const createConditionById = async (idPatient, conditionData) => {
     try{
@@ -92,6 +94,20 @@ const getConditionsById = async (idPatient) => {
     }
 }
 
+const deleteConditionById = async (idCondition) => {
+    console.log(idCondition)
+    try{
+        const { data } = await Api().delete('/patients/conditions',{
+            idRelation: idCondition
+        })
+        console.log(data)
+        return {data:data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao deletar doença')
+    }
+}
+
+
 const getMedicationsById = async (idPatient) => {
     try{
         const { data } = await Api().get(`/patients/medications/${idPatient}`)
@@ -100,6 +116,7 @@ const getMedicationsById = async (idPatient) => {
         return new ApiException(err.message || 'Erro ao buscar paciente.')
     }
 } 
+
 
 const getExamsById = async (idPatient) => {
     try{
@@ -134,6 +151,7 @@ export const PatientService = {
     createAllergyById,
     getConditionsById,
     createConditionById,
+    deleteConditionById,
     getMedicationsById,
     getExamsById,
     createExam

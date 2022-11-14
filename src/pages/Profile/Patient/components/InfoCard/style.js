@@ -44,6 +44,7 @@ export const InfoCardRow = styled.div`
     .title{
         font-size: 1.85rem;
         color: var(--gray);
+        text-transform: capitalize;
     }
 
     .buttonContainer{
