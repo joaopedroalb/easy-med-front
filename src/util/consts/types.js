@@ -1,0 +1,7 @@
+export const INFO_TYPES = {
+    MEDICATION: 'MEDICATION',
+    HEREDITARY: 'HEREDITARY',
+    DISEASE: 'DISEASE',
+    EXAM: 'EXAM',
+    ALLERGY: 'ALLERGY'
+}

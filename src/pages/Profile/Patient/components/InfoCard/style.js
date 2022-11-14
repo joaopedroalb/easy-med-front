@@ -1,6 +1,23 @@
 import styled from "styled-components";
+import { INFO_TYPES } from "../../../../../util/consts/types";
+
+const IconTypeColor =  type => {
+    switch(type){
+        case  INFO_TYPES.ALLERGY: 
+            return  '#db5d5d'
+        case INFO_TYPES.HEREDITARY: 
+            return '#62a172'
+        case INFO_TYPES.MEDICATION: 
+            return '#155ac3'
+        case INFO_TYPES.EXAM:
+            return '#404f78'
+        default:
+            return '#155ac3'
+    }
+}
 
 export const InfoCardBg = styled.div`
+    background-color: var(--white);
     width: 100%;
     max-width: 1400px;
     padding: 18px;
@@ -21,12 +38,13 @@ export const InfoCardRow = styled.div`
     justify-content: space-between;
     .icon{
         font-size: 2.25rem;
-        color: ${({type}) => type === 'DISEASE' ? "#62a172" : type === 'ALLERGY' ? "#db5d5d" : "#155ac3"};
+        color: ${({type}) => IconTypeColor(type)};
     }
 
     .title{
         font-size: 1.85rem;
         color: var(--gray);
+        text-transform: capitalize;
     }
 
     .buttonContainer{
