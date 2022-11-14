@@ -12,7 +12,7 @@ import {
 
 import Button from "../../components/common/Button";
 import BG_URL from "../../assets/images/login_bg.jpg";
-import { BUTTON_THEME } from "../../util/consts";
+import { BUTTON_THEME } from "../../util/consts/styleTokens";
 import { useState } from "react";
 import { PatientService } from '../../services/patient/PatientService'
 import { useContext } from "react";

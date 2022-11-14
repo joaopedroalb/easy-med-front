@@ -19,6 +19,26 @@ export const ModalCreateForm = styled.form`
         width: 250px;
         gap: 0.5rem;
     }
+    
+    .col-label-2g{
+        display: flex;
+        flex-direction: column;
+        width: 750px;
+
+        textarea {
+            height: 85px !important; 
+        }
+    }
+
+    .col-label-3g{
+        display: flex;
+        flex-direction: column;
+        width: 750px;
+
+        textarea {
+            height: 85px !important; 
+        }
+    }
 
     .row-label{
         display: flex;
@@ -26,7 +46,9 @@ export const ModalCreateForm = styled.form`
         justify-content: center;
         gap: 0.5rem;
         width: 100%;
+        flex-wrap: wrap;
     }
+    
 
     textarea{
         resize: none;
@@ -34,7 +56,7 @@ export const ModalCreateForm = styled.form`
 
     input, textarea, select{
         padding: 8px;
-        height: 60px;
+        height: 50px;
     }
 
     .cancel-btn, .submit-btn {

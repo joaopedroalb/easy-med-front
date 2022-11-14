@@ -10,7 +10,7 @@ import {
 import BG_URL from "../../assets/images/login_bg.jpg";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
-import { BUTTON_THEME } from "../../util/consts";
+import { BUTTON_THEME } from "../../util/consts/styleTokens";
 import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
@@ -48,7 +48,7 @@ export default function Login() {
             name="email_user"
             placeholder="Digite seu nome de usuário"
             type="email"
-            handleBlur={({target})=>setUser({...user, email: target.value})}
+            handleChange={({target})=>setUser({...user, email: target.value})}
           />
 
           <Input
@@ -56,7 +56,7 @@ export default function Login() {
             name="password_user"
             placeholder="Digite sua senha"
             type="password"
-            handleBlur={({target})=>setUser({...user, password: target.value})}
+            handleChange={({target})=>setUser({...user, password: target.value})}
           />
           <Button theme={BUTTON_THEME.darkBlue}>Entrar</Button>
           {
