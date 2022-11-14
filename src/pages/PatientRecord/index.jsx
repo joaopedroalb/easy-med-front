@@ -12,7 +12,7 @@ import {
 
 import Button from "../../components/common/Button";
 import BG_URL from "../../assets/images/login_bg.jpg";
-import { BUTTON_THEME } from "../../util/consts";
+import { BUTTON_THEME } from "../../util/consts/styleTokens";
 import { useState } from "react";
 import { PatientService } from '../../services/patient/PatientService'
 import { useContext } from "react";
@@ -46,8 +46,8 @@ export default function PatientRecord() {
 
     if(result.error) return
 
-    const {id, name, email} = result.data
-    userLogin(id,name,email)
+    const {id, name, email, pictureUrl} = result.data
+    userLogin(id,name,email, false, pictureUrl)
     navigate('/profile')
   }
 

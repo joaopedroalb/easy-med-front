@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DEVICE_RESPONSIVE_QUERY } from "../../util/consts";
+import { DEVICE_RESPONSIVE_QUERY } from "../../util/consts/styleTokens";
 
 export const LoginBg = styled.div`
     width: 100%;
