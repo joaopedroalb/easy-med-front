@@ -96,6 +96,18 @@ export default function PatientProfile() {
       if(!result.error) await getUserInfos()
       return !result.error
     }
+
+    if(type === INFO_TYPES.ALLERGY){
+      const result = await PatientService.deleteAllergiesById(id, user.id)
+      if(!result.error) await getUserInfos()
+      return !result.error
+    }
+
+    if(type === INFO_TYPES.EXAM){
+      const result = await PatientService.deleteExamById(id)
+      if(!result.error) await getUserInfos()
+      return !result.error
+    }
   }
   
   const handleUpdate = (id,type) => {
@@ -125,7 +137,7 @@ export default function PatientProfile() {
   }
 
   const RenderBody = () => {
-    console.log(loading)
+
     if(loading) 
       return <Loading />
 
