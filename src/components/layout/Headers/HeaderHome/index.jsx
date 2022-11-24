@@ -7,11 +7,11 @@ export default function HomeHeader() {
     <>
       <Header>
         <TitleLogo>EasyMed</TitleLogo>
-        <Link to='/signin'>
+        <Link to="/signin">
           <ButtonLogin>
-            <p className="text-btn">Entrar</p> 
+            <p className="text-btn">Entrar</p>
             <IconContent>
-              <FaUserAlt color="#F7F8FA" size={'1rem'}/>
+              <FaUserAlt color="#F7F8FA" size={"1rem"} />
             </IconContent>
           </ButtonLogin>
         </Link>
