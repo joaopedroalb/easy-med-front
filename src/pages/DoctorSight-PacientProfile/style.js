@@ -22,7 +22,9 @@ export const SectionTitle = styled.section `
   width : 117.2rem;
   height: 7.4rem;
 
-  margin: 5.4rem auto 4.5rem;
+
+  margin: 5.4rem auto 0;
+
 
   display: flex;
   justify-content: space-between;
@@ -49,31 +51,49 @@ export const SectionTitle = styled.section `
 `
 
 export const SectionInfo = styled.section `
-  margin: 4.5rem auto 10rem;
-  padding: 0;
+  margin: 0 auto;
+  padding-top: 4.5rem;
 
-  width: 117.2rem;
-  height: 40rem;
+  width: 87.6rem;
+  height: 26.5rem;
   
   display: flex;
   align-items: center;
+  justify-content: center;
+
   gap: 4.6rem;
-
-  border-block-color: #6F6F6F;
-
  
 
   .infoProfile {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 6.7rem;
   }
 
+  .infoProfile label {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #000000;
+  }
+
+  .infoProfile input {
+    width: 25.4rem;
+    height: 4.2rem;
+
+    border-radius: 1.5rem;
+
+    color: #000000;
+  }
   .colA {
     height: 25.4rem;
     width: 25.4rem;
 
     display: flex;
-    align-items: center;
+    justify-content: center;
     flex-direction: column;
   }
 
@@ -82,7 +102,7 @@ export const SectionInfo = styled.section `
     width: 25.4rem;
     
     display: flex;
-    align-items: center;
+    justify-content: center;
     flex-direction: column;
   }
 `
