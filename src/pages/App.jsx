@@ -4,6 +4,7 @@ import Home from "./Home";
 import Login from "./Login";
 import PatientRecord from "./PatientRecord";
 import PatientProfile from "./Profile/Patient/PatientProfile";
+import DoctorProfile from "./Profile/Doctor/DoctorProfile";
 
 function App() {
   return (
@@ -13,11 +14,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="signin/*" element={<Login />} />
           <Route path="signup/*" element={<PatientRecord />} />
-          <Route path="profile/" element={
-            <ProtectedRoute>
-              <PatientProfile/>
-            </ProtectedRoute>
-          } />
+          <Route path="doctor-profile/*" element={<DoctorProfile />} />
+          <Route
+            path="profile/"
+            element={
+              <ProtectedRoute>
+                <PatientProfile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
