@@ -69,6 +69,16 @@ const getAllergiesById = async (idPatient) => {
     }
 }
 
+const deleteAllergiesById = async (idAllergy, idPatient) => {
+    try{
+        const { data } = await Api().delete(`/patients/allergies/${idPatient}`,{
+           data: { idAllergy: idAllergy }
+        })
+        return {data:data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao deletar doença')
+    }
+}
 
 const createConditionById = async (idPatient, conditionData) => {
     try{
@@ -97,7 +107,7 @@ const getConditionsById = async (idPatient) => {
 const deleteConditionById = async (idCondition) => {
     try{
         const { data } = await Api().delete('/patients/conditions',{
-            idRelation: idCondition
+           data: { idRelation: idCondition }
         })
         return {data:data, error:false}
     }catch(err){
@@ -141,16 +151,54 @@ const createExam = async (examData) => {
     }
 }
 
+const deleteExamById = async (idExam) => {
+    try{
+        const { data } = await Api().delete('/patients/exams',{
+           data: { idExam: idExam }
+        })
+        return {data:data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao deletar doença')
+    }
+}
+
+const getDiagnosesById = async (idPatient) => {
+    try{
+        const { data } = await Api().get(`/patients/diagnoses/${idPatient}`)
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao buscar paciente.')
+    }
+}
+
+const createDiagnosis = async (newDiagnose) => {
+    try{
+        const { data } = await Api().post('/patients/diagnoses',{...newDiagnose})
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao criar exame.')
+    }
+}
+
 export const PatientService = {
     getById,
     create,
     updateById,
+
     getAllergiesById,
     createAllergyById,
+    deleteAllergiesById,
+
     getConditionsById,
     createConditionById,
     deleteConditionById,
+
     getMedicationsById,
+    
     getExamsById,
-    createExam
+    createExam,
+    deleteExamById,
+
+    getDiagnosesById,
+    createDiagnosis
 }

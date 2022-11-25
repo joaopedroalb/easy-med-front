@@ -1,15 +1,17 @@
 import {useState} from 'react'
 import { InfoCardBg, InfoCardRow } from './style'
 
-import {FaAllergies, FaDisease, FaFileMedicalAlt} from 'react-icons/fa'
+import {FaAllergies, FaDisease, FaFileMedicalAlt, FaDiagnoses} from 'react-icons/fa'
 import {GiMedicines} from 'react-icons/gi'
 import {MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp} from 'react-icons/md'
 import {RiEditBoxLine} from 'react-icons/ri'
 import {FiTrash} from 'react-icons/fi'
 import { INFO_TYPES } from '../../../../../util/consts/types'
+import { DateService } from '../../../../../util/dateService'
+import CardDiagnose from '../../../PatientByDoctor/components/CardDiagnose'
 
 
-export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEditItem, isCrud, hasDescription}) {
+export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEditItem, editItem, deleteItem , hasDescription}) {
 
     const [open, setOpen] = useState(false)
 
@@ -27,6 +29,9 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
             
             case INFO_TYPES.EXAM:
                 return <FaFileMedicalAlt className='icon' />
+            
+            case INFO_TYPES.DIAGNOSES:
+                return <FaDiagnoses className='icon' />
 
             default:
                 return null
@@ -66,14 +71,36 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
         }
 
         if(typeInfo === INFO_TYPES.EXAM){
-            const  {doctor, examType, location, summary, date}  = infoData
+            const  {examType, location, summary, date}  = infoData
             return (
                 <div className='description-box'>
-                    {doctor && <p>Doutor: {doctor}</p>}
-                    <p>Tipo: {examType}</p>
-                    <p>Local: {location}</p>
-                    <p>Resumo: {summary}</p>
-                    <p>Data: {date}</p>
+                    <p><strong>Tipo</strong>: {examType}</p>
+                    <p><strong>Local</strong>: {location}</p>
+                    <p><strong>Resumo</strong>: {summary}</p>
+                    <p><strong>Data</strong>: {DateService.getDateFormated(date)}</p>
+                </div>
+            )
+        }
+
+        if(typeInfo === INFO_TYPES.DIAGNOSES){
+            const {description, diagnosisUrl, relatedExams, examList} = infoData
+            return (
+                <div className='description-box'>
+                    <p><strong>Descrição</strong>: {description}</p>
+                    <p><strong>URL</strong>: <a>{diagnosisUrl}</a></p>
+                    {examList && examList.lenght > 0 && <p><strong>Exames: </strong></p>}
+                    {examList && examList.map(exam=>{
+                        const {idExam, examType, location, summary, date} = exam
+                        return <CardDiagnose 
+                                    key={idExam}
+                                    isCrud={false}
+                                    idExam={idExam} 
+                                    examType={examType} 
+                                    location={location} 
+                                    summary={summary} 
+                                    date={date}
+                                />
+                    })}
                 </div>
             )
         }
@@ -96,6 +123,9 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
             case INFO_TYPES.EXAM:
                 return infoData.examType
 
+            case INFO_TYPES.DIAGNOSES:
+                return DateService.getDateFormated(infoData.createdAt) 
+
             default:
                 return ''
         }
@@ -108,15 +138,13 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
                 <h1 className='title'>{TitleText()}</h1>
 
                 <div className='buttonContainer'>
-                    { isCrud && (
-                    <>
-                        <RiEditBoxLine className='item-icon__edit' onClick={handleEditItem}/>
-                        <FiTrash className='item-icon__delete' onClick={handleDeleteItem}/>
-                    </>
-                    )}
-                    
+                    { editItem &&  <RiEditBoxLine className='item-icon__edit' onClick={handleEditItem}/> }
+                    { deleteItem && <FiTrash className='item-icon__delete' onClick={handleDeleteItem}/> }
                     {
-                        hasDescription && (open ? <MdOutlineKeyboardArrowUp onClick={()=>setOpen(false)} className='switchBtn'/> : <MdOutlineKeyboardArrowDown onClick={()=>setOpen(true)} className='switchBtn'/>)
+                        hasDescription && (
+                            open ? 
+                            <MdOutlineKeyboardArrowUp onClick={()=>setOpen(false)} className='switchBtn'/> : 
+                            <MdOutlineKeyboardArrowDown onClick={()=>setOpen(true)} className='switchBtn'/>)
                     }
                 </div>
             </InfoCardRow>

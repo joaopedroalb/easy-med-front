@@ -3,9 +3,7 @@ import InfoCard from '../InfoCard'
 import {AiOutlinePlusCircle} from 'react-icons/ai'
 import { InfoCardContainer } from './style'
 
-export default function InfoList({title, list, isCrud=false, crudActions, typeInfo, hasDescription, theme='dark'}) {
-    const {handleCreate, handleDelete, handleUpdate} = crudActions
-
+export default function InfoList({title, insertTitle, list, isEdit, isDelete, isInsert, crudActions, typeInfo, hasDescription, theme='dark'}) {
     const validList = list && list.length > 0
 
     return (
@@ -20,9 +18,10 @@ export default function InfoList({title, list, isCrud=false, crudActions, typeIn
                                 typeInfo={typeInfo} 
                                 infoData={item} 
                                 key={item.id} 
-                                handleDeleteItem={()=>handleDelete(item.id, typeInfo)}
-                                handleEditItem={()=>handleUpdate(item.id, typeInfo)}
-                                isCrud={isCrud}
+                                handleDeleteItem={()=>crudActions?.handleDelete(item.id, typeInfo)}
+                                handleEditItem={()=>crudActions?.handleUpdate(item.id, typeInfo)}
+                                deleteItem={isDelete}
+                                editItem={isEdit}
                                 hasDescription={hasDescription}
                             />
                         )
@@ -33,11 +32,11 @@ export default function InfoList({title, list, isCrud=false, crudActions, typeIn
             }
     
             {
-                isCrud && (
+                (isDelete || isEdit || isInsert) && (
                     <footer className='insert-row'>
-                        <div className='insert-content' onClick={()=>handleCreate(typeInfo)}>
+                        <div className='insert-content' onClick={()=>crudActions?.handleCreate(typeInfo)}>
                             <AiOutlinePlusCircle className='insert-icon'/>
-                            <p>Adicionar nova {title}</p>
+                            <p>{insertTitle}</p>
                         </div>
                     </footer>
                 )
