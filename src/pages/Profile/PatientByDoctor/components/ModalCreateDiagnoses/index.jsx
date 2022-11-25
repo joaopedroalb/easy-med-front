@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 import Modal from '../../../../../components/common/Modal';
-import { DateService } from '../../../../../util/dateService';
 import CardDiagnose from '../CardDiagnose';
 
 import { ModalCreateForm } from './style';

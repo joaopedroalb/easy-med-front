@@ -27,6 +27,7 @@ export default function PatientProfile() {
   const [allergies, setAllergies] = useState([])
   const [conditions, setConditions] = useState([])
   const [exams, setExams] = useState([])
+  const [diagnoses,setDiagnoses] = useState([])
 
   const [infoModal, setInfoModal] = useState({
                                               open:false,
@@ -57,7 +58,18 @@ export default function PatientProfile() {
 
     const examsResult  = await PatientService.getExamsById(user.id)
     if(!examsResult.error) setExams(examsResult.data)
+
+    const diagnosesResult = await PatientService.getDiagnosesById(user.id)
+    if(!diagnosesResult.error) setDiagnoses(diagnosesResult.data)
   }
+
+  const getInfoListDataDiagnose = () => {
+    return diagnoses.map(item=>{
+        const diagnosesExams = item.relatedExams.map(x=> x.idExam)
+        const listExamData = exams.filter(exam=> diagnosesExams.includes(exam.id))
+        return {...item, examList:listExamData}
+    })
+}
 
   const getData = useCallback(async ()=>{
     const result = await PatientService.getById(user.id)
@@ -220,6 +232,15 @@ export default function PatientProfile() {
           }}
           hasDescription={true}
           theme='white'
+        />
+
+        <InfoList 
+            title='Diagnósticos'
+            insertTitle=''
+            typeInfo={INFO_TYPES.DIAGNOSES}
+            list={getInfoListDataDiagnose()}
+            hasDescription
+            theme='dark'
         />
       </>
     )
