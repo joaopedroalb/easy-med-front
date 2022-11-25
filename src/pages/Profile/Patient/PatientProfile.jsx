@@ -27,6 +27,7 @@ export default function PatientProfile() {
   const [allergies, setAllergies] = useState([])
   const [conditions, setConditions] = useState([])
   const [exams, setExams] = useState([])
+  const [diagnoses,setDiagnoses] = useState([])
 
   const [infoModal, setInfoModal] = useState({
                                               open:false,
@@ -57,7 +58,18 @@ export default function PatientProfile() {
 
     const examsResult  = await PatientService.getExamsById(user.id)
     if(!examsResult.error) setExams(examsResult.data)
+
+    const diagnosesResult = await PatientService.getDiagnosesById(user.id)
+    if(!diagnosesResult.error) setDiagnoses(diagnosesResult.data)
   }
+
+  const getInfoListDataDiagnose = () => {
+    return diagnoses.map(item=>{
+        const diagnosesExams = item.relatedExams.map(x=> x.idExam)
+        const listExamData = exams.filter(exam=> diagnosesExams.includes(exam.id))
+        return {...item, examList:listExamData}
+    })
+}
 
   const getData = useCallback(async ()=>{
     const result = await PatientService.getById(user.id)
@@ -96,6 +108,18 @@ export default function PatientProfile() {
       if(!result.error) await getUserInfos()
       return !result.error
     }
+
+    if(type === INFO_TYPES.ALLERGY){
+      const result = await PatientService.deleteAllergiesById(id, user.id)
+      if(!result.error) await getUserInfos()
+      return !result.error
+    }
+
+    if(type === INFO_TYPES.EXAM){
+      const result = await PatientService.deleteExamById(id)
+      if(!result.error) await getUserInfos()
+      return !result.error
+    }
   }
   
   const handleUpdate = (id,type) => {
@@ -125,7 +149,7 @@ export default function PatientProfile() {
   }
 
   const RenderBody = () => {
-    console.log(loading)
+
     if(loading) 
       return <Loading />
 
@@ -151,9 +175,10 @@ export default function PatientProfile() {
         />
         <InfoList 
           title='Doenças Hereditárias'
+          insertTitle='Adicionar nova Doença Hereditária'
           typeInfo={INFO_TYPES.HEREDITARY}
           list={conditions}
-          isCrud={true}
+          isDelete
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -165,9 +190,11 @@ export default function PatientProfile() {
 
         <InfoList 
           title='Alergias'
+          insertTitle='Adicionar nova Alergia'
           typeInfo={INFO_TYPES.ALLERGY}
           list={allergies}
-          isCrud={true}
+          isDelete
+          isEdit
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -179,9 +206,9 @@ export default function PatientProfile() {
 
         <InfoList 
           title='Medicamentos'
+          insertTitle='Adicionar novo Medicamento'
           typeInfo={INFO_TYPES.MEDICATION}
           list={medications}
-          isCrud={false}
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -193,9 +220,11 @@ export default function PatientProfile() {
 
         <InfoList 
           title='Exames'
+          insertTitle='Adicionar novo Exame'
           typeInfo={INFO_TYPES.EXAM}
           list={exams}
-          isCrud={true}
+          isEdit
+          isDelete
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -203,6 +232,15 @@ export default function PatientProfile() {
           }}
           hasDescription={true}
           theme='white'
+        />
+
+        <InfoList 
+            title='Diagnósticos'
+            insertTitle=''
+            typeInfo={INFO_TYPES.DIAGNOSES}
+            list={getInfoListDataDiagnose()}
+            hasDescription
+            theme='dark'
         />
       </>
     )

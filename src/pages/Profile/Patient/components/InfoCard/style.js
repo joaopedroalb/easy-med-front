@@ -29,6 +29,9 @@ export const InfoCardBg = styled.div`
     
     .description-box{
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 `
 

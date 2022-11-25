@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Dropdown from '../../../../../components/common/Dropdown';
 import { PatientService } from '../../../../../services/patient/PatientService';
+import { DateService } from '../../../../../util/dateService';
 
 import { ColumnInputContent, FormContainer, InputRow, InputsContainer, FooterContent, ButtonAction } from './style';
 
@@ -35,11 +36,6 @@ function FormsPatient({userData, changeUserData}) {
         setIsDisable(true)
     }
 
-    const getDate  = (value) => {
-        const date = new Date(value)
-        return date.toLocaleDateString('pt-BR')
-    }
-
     return (
         <FormContainer>
             <InputsContainer>
@@ -50,7 +46,8 @@ function FormsPatient({userData, changeUserData}) {
                         <input disabled={isDisable} 
                             value={editUser.height} 
                             type='number' 
-                            onChange={({target})=>handleChangeeditUser(target.value, 'height')}
+                            min={0}
+                            onChange={({target})=>handleChangeeditUser(target.value * 1, 'height')}
                         />
                     </InputRow>
                     <InputRow>
@@ -58,7 +55,8 @@ function FormsPatient({userData, changeUserData}) {
                         <input disabled={isDisable} 
                             value={editUser.weight} 
                             type='number' 
-                            onChange={({target})=>handleChangeeditUser(target.value, 'weight')}
+                            min={5}
+                            onChange={({target})=>handleChangeeditUser(target.value * 1, 'weight')}
                         />
                     </InputRow>
                     {/* <InputRow>
@@ -75,7 +73,7 @@ function FormsPatient({userData, changeUserData}) {
                     <InputRow>
                         <label>Admissão: </label>
                         <input disabled
-                            defaultValue={getDate(editUser.createdAt)} 
+                            defaultValue={DateService.getDateFormated(editUser.createdAt)} 
                             type="text" 
                         />
                     </InputRow>
