@@ -4,8 +4,6 @@ import {AiOutlinePlusCircle} from 'react-icons/ai'
 import { InfoCardContainer } from './style'
 
 export default function InfoList({title, insertTitle, list, isEdit, isDelete, crudActions, typeInfo, hasDescription, theme='dark'}) {
-    const {handleCreate, handleDelete, handleUpdate} = crudActions
-
     const validList = list && list.length > 0
 
     return (
@@ -20,8 +18,8 @@ export default function InfoList({title, insertTitle, list, isEdit, isDelete, cr
                                 typeInfo={typeInfo} 
                                 infoData={item} 
                                 key={item.id} 
-                                handleDeleteItem={()=>handleDelete(item.id, typeInfo)}
-                                handleEditItem={()=>handleUpdate(item.id, typeInfo)}
+                                handleDeleteItem={()=>crudActions?.handleDelete(item.id, typeInfo)}
+                                handleEditItem={()=>crudActions?.handleUpdate(item.id, typeInfo)}
                                 deleteItem={isDelete}
                                 editItem={isEdit}
                                 hasDescription={hasDescription}
@@ -36,7 +34,7 @@ export default function InfoList({title, insertTitle, list, isEdit, isDelete, cr
             {
                 (isDelete || isEdit) && (
                     <footer className='insert-row'>
-                        <div className='insert-content' onClick={()=>handleCreate(typeInfo)}>
+                        <div className='insert-content' onClick={()=>crudActions?.handleCreate(typeInfo)}>
                             <AiOutlinePlusCircle className='insert-icon'/>
                             <p>{insertTitle}</p>
                         </div>

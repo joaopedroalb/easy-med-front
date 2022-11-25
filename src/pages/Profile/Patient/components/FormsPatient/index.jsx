@@ -46,7 +46,8 @@ function FormsPatient({userData, changeUserData}) {
                         <input disabled={isDisable} 
                             value={editUser.height} 
                             type='number' 
-                            onChange={({target})=>handleChangeeditUser(target.value, 'height')}
+                            min={0}
+                            onChange={({target})=>handleChangeeditUser(target.value * 1, 'height')}
                         />
                     </InputRow>
                     <InputRow>
@@ -54,7 +55,8 @@ function FormsPatient({userData, changeUserData}) {
                         <input disabled={isDisable} 
                             value={editUser.weight} 
                             type='number' 
-                            onChange={({target})=>handleChangeeditUser(target.value, 'weight')}
+                            min={5}
+                            onChange={({target})=>handleChangeeditUser(target.value * 1, 'weight')}
                         />
                     </InputRow>
                     {/* <InputRow>

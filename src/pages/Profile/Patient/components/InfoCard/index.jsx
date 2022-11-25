@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { InfoCardBg, InfoCardRow } from './style'
 
-import {FaAllergies, FaDisease, FaFileMedicalAlt} from 'react-icons/fa'
+import {FaAllergies, FaDisease, FaFileMedicalAlt, FaDiagnoses} from 'react-icons/fa'
 import {GiMedicines} from 'react-icons/gi'
 import {MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp} from 'react-icons/md'
 import {RiEditBoxLine} from 'react-icons/ri'
@@ -28,6 +28,9 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
             
             case INFO_TYPES.EXAM:
                 return <FaFileMedicalAlt className='icon' />
+            
+            case INFO_TYPES.DIAGNOSES:
+                return <FaDiagnoses className='icon' />
 
             default:
                 return null
@@ -77,6 +80,10 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
                     <p><strong>Data</strong>: {DateService.getDateFormated(date)}</p>
                 </div>
             )
+        }
+
+        if(typeInfo === INFO_TYPES.DIAGNOSES){
+            <div>Diagnostico</div>
         }
 
         return null
