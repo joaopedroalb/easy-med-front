@@ -3,7 +3,7 @@ import InfoCard from '../InfoCard'
 import {AiOutlinePlusCircle} from 'react-icons/ai'
 import { InfoCardContainer } from './style'
 
-export default function InfoList({title, list, isCrud=false, crudActions, typeInfo, hasDescription, theme='dark'}) {
+export default function InfoList({title, insertTitle, list, isEdit, isDelete, crudActions, typeInfo, hasDescription, theme='dark'}) {
     const {handleCreate, handleDelete, handleUpdate} = crudActions
 
     const validList = list && list.length > 0
@@ -22,7 +22,8 @@ export default function InfoList({title, list, isCrud=false, crudActions, typeIn
                                 key={item.id} 
                                 handleDeleteItem={()=>handleDelete(item.id, typeInfo)}
                                 handleEditItem={()=>handleUpdate(item.id, typeInfo)}
-                                isCrud={isCrud}
+                                deleteItem={isDelete}
+                                editItem={isEdit}
                                 hasDescription={hasDescription}
                             />
                         )
@@ -33,11 +34,11 @@ export default function InfoList({title, list, isCrud=false, crudActions, typeIn
             }
     
             {
-                isCrud && (
+                (isDelete || isEdit) && (
                     <footer className='insert-row'>
                         <div className='insert-content' onClick={()=>handleCreate(typeInfo)}>
                             <AiOutlinePlusCircle className='insert-icon'/>
-                            <p>Adicionar nova {title}</p>
+                            <p>{insertTitle}</p>
                         </div>
                     </footer>
                 )

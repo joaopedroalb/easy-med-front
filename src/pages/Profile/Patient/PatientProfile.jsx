@@ -163,9 +163,10 @@ export default function PatientProfile() {
         />
         <InfoList 
           title='Doenças Hereditárias'
+          insertTitle='Adicionar nova Doença Hereditária'
           typeInfo={INFO_TYPES.HEREDITARY}
           list={conditions}
-          isCrud={true}
+          isDelete
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -177,9 +178,11 @@ export default function PatientProfile() {
 
         <InfoList 
           title='Alergias'
+          insertTitle='Adicionar nova Alergia'
           typeInfo={INFO_TYPES.ALLERGY}
           list={allergies}
-          isCrud={true}
+          isDelete
+          isEdit
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -191,9 +194,9 @@ export default function PatientProfile() {
 
         <InfoList 
           title='Medicamentos'
+          insertTitle='Adicionar novo Medicamento'
           typeInfo={INFO_TYPES.MEDICATION}
           list={medications}
-          isCrud={false}
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -205,9 +208,11 @@ export default function PatientProfile() {
 
         <InfoList 
           title='Exames'
+          insertTitle='Adicionar novo Exame'
           typeInfo={INFO_TYPES.EXAM}
           list={exams}
-          isCrud={true}
+          isEdit
+          isDelete
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,

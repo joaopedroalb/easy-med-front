@@ -7,9 +7,10 @@ import {MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp} from 'react-icons/
 import {RiEditBoxLine} from 'react-icons/ri'
 import {FiTrash} from 'react-icons/fi'
 import { INFO_TYPES } from '../../../../../util/consts/types'
+import { DateService } from '../../../../../util/dateService'
 
 
-export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEditItem, isCrud, hasDescription}) {
+export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEditItem, editItem, deleteItem , hasDescription}) {
 
     const [open, setOpen] = useState(false)
 
@@ -70,10 +71,10 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
             return (
                 <div className='description-box'>
                     {doctor && <p>Doutor: {doctor}</p>}
-                    <p>Tipo: {examType}</p>
-                    <p>Local: {location}</p>
-                    <p>Resumo: {summary}</p>
-                    <p>Data: {date}</p>
+                    <p><strong>Tipo</strong>: {examType}</p>
+                    <p><strong>Local</strong>: {location}</p>
+                    <p><strong>Resumo</strong>: {summary}</p>
+                    <p><strong>Data</strong>: {DateService.getDateFormated(date)}</p>
                 </div>
             )
         }
@@ -108,15 +109,13 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
                 <h1 className='title'>{TitleText()}</h1>
 
                 <div className='buttonContainer'>
-                    { isCrud && (
-                    <>
-                        <RiEditBoxLine className='item-icon__edit' onClick={handleEditItem}/>
-                        <FiTrash className='item-icon__delete' onClick={handleDeleteItem}/>
-                    </>
-                    )}
-                    
+                    { editItem &&  <RiEditBoxLine className='item-icon__edit' onClick={handleEditItem}/> }
+                    { deleteItem && <FiTrash className='item-icon__delete' onClick={handleDeleteItem}/> }
                     {
-                        hasDescription && (open ? <MdOutlineKeyboardArrowUp onClick={()=>setOpen(false)} className='switchBtn'/> : <MdOutlineKeyboardArrowDown onClick={()=>setOpen(true)} className='switchBtn'/>)
+                        hasDescription && (
+                            open ? 
+                            <MdOutlineKeyboardArrowUp onClick={()=>setOpen(false)} className='switchBtn'/> : 
+                            <MdOutlineKeyboardArrowDown onClick={()=>setOpen(true)} className='switchBtn'/>)
                     }
                 </div>
             </InfoCardRow>
