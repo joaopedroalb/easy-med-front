@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Dropdown from '../../../../../components/common/Dropdown';
 import { PatientService } from '../../../../../services/patient/PatientService';
+import { DateService } from '../../../../../util/dateService';
 
 import { ColumnInputContent, FormContainer, InputRow, InputsContainer, FooterContent, ButtonAction } from './style';
 
@@ -33,11 +34,6 @@ function FormsPatient({userData, changeUserData}) {
         const result = await PatientService.updateById(editUser.id, editUser)
         if(!result.error) changeUserData(result.data)
         setIsDisable(true)
-    }
-
-    const getDate  = (value) => {
-        const date = new Date(value)
-        return date.toLocaleDateString('pt-BR')
     }
 
     return (
@@ -75,7 +71,7 @@ function FormsPatient({userData, changeUserData}) {
                     <InputRow>
                         <label>Admissão: </label>
                         <input disabled
-                            defaultValue={getDate(editUser.createdAt)} 
+                            defaultValue={DateService.getDateFormated(editUser.createdAt)} 
                             type="text" 
                         />
                     </InputRow>
