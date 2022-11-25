@@ -26,6 +26,7 @@ export const ProfileBg = styled.div`
             width: 100%;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
         }
 
         .info-box{

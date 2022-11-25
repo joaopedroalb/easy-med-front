@@ -1,16 +1,22 @@
 import React from 'react'
 import { useState } from 'react'
+import { useContext } from 'react'
 import { useCallback } from 'react'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import LayoutPage from '../../../components/layout/LayoutPage'
+import { UserContext } from '../../../context/UserContext'
 import { PatientService } from '../../../services/patient/PatientService'
 import { INFO_TYPES } from '../../../util/consts/types'
 import { MaskService } from '../../../util/maskService'
 import InfoList from '../Patient/components/InfoList'
+import ModalCreateDiagnoses from './components/ModalCreateDiagnoses'
 import { ImageContainer, ProfileBg } from './style'
 
 export default function PatientByDoctor() {
+    const {user} = useContext(UserContext)
+    const {id} = useParams()
+
     const [patient, setPatient] = useState(null)
 
     const [medications, setMedications] = useState([])
@@ -19,11 +25,24 @@ export default function PatientByDoctor() {
     const [diagnoses,setDiagnoses] = useState([])
     const [exams, setExams] = useState([])
 
-    const {id} = useParams()
+    const [diagModal, setDiagModal] = useState(false)
+    
+
+    const handleOpenModal = () => setDiagModal(true)
+    const handleCloseModal = () => setDiagModal(false)
+
+    const createDiagnone = async (newDiagnose) => {
+        const newDiagnoseResult = await PatientService.createDiagnosis(newDiagnose)
+
+        if(!newDiagnoseResult.error)
+            await getUserInfos(id)
+    }
+
+    const handleAddDiagnose =  async (diagnose) => {
+        await createDiagnone(diagnose)
+    }
 
     const getUserInfos = async (id) => {
-
-        console.log(id)
         const medicationResult = await PatientService.getMedicationsById(id)
         if(!medicationResult.error) setMedications(medicationResult.data)
     
@@ -35,6 +54,9 @@ export default function PatientByDoctor() {
     
         const examsResult  = await PatientService.getExamsById(id)
         if(!examsResult.error) setExams(examsResult.data)
+
+        const diagnosesResult = await PatientService.getDiagnosesById(id)
+        if(!diagnosesResult.error) setDiagnoses(diagnosesResult.data)
       }
     
 
@@ -45,9 +67,16 @@ export default function PatientByDoctor() {
 
        setPatient(result.data)
        getUserInfos(result.data.id)
-
-       console.log(result.data)
+       
     },[])
+
+    const getInfoListDataDiagnose = () => {
+        return diagnoses.map(item=>{
+            const diagnosesExams = item.relatedExams.map(x=> x.idExam)
+            const listExamData = exams.filter(exam=> diagnosesExams.includes(exam.id))
+            return {...item, examList:listExamData}
+        })
+    }
     
 
     useEffect(()=>{
@@ -63,6 +92,14 @@ export default function PatientByDoctor() {
     return (
         <LayoutPage>
             <ProfileBg>
+                <ModalCreateDiagnoses 
+                    open={diagModal} 
+                    handleClose={handleCloseModal} 
+                    handleCreate={handleAddDiagnose} 
+                    idDoctor={user.id}
+                    idPatient={id} 
+                    exams={exams}
+                />
                 <div className='info-container'>
                    <ImageContainer>
                         <img src={patient.pictureUrl} />
@@ -119,10 +156,13 @@ export default function PatientByDoctor() {
                     title='Diagnósticos'
                     insertTitle='Adicionar novo diagnóstico'
                     typeInfo={INFO_TYPES.DIAGNOSES}
-                    list={diagnoses}
-                    isEdit
-                    hasDescription={false}
+                    list={getInfoListDataDiagnose()}
+                    isInsert
+                    hasDescription
                     theme='dark'
+                    crudActions={{
+                        handleCreate: handleOpenModal,
+                    }}
                 />
             </ProfileBg>
         </LayoutPage>

@@ -8,6 +8,7 @@ import {RiEditBoxLine} from 'react-icons/ri'
 import {FiTrash} from 'react-icons/fi'
 import { INFO_TYPES } from '../../../../../util/consts/types'
 import { DateService } from '../../../../../util/dateService'
+import CardDiagnose from '../../../PatientByDoctor/components/CardDiagnose'
 
 
 export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEditItem, editItem, deleteItem , hasDescription}) {
@@ -70,10 +71,9 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
         }
 
         if(typeInfo === INFO_TYPES.EXAM){
-            const  {doctor, examType, location, summary, date}  = infoData
+            const  {examType, location, summary, date}  = infoData
             return (
                 <div className='description-box'>
-                    {doctor && <p>Doutor: {doctor}</p>}
                     <p><strong>Tipo</strong>: {examType}</p>
                     <p><strong>Local</strong>: {location}</p>
                     <p><strong>Resumo</strong>: {summary}</p>
@@ -83,7 +83,26 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
         }
 
         if(typeInfo === INFO_TYPES.DIAGNOSES){
-            <div>Diagnostico</div>
+            const {description, diagnosisUrl, relatedExams, examList} = infoData
+            return (
+                <div className='description-box'>
+                    <p><strong>Descrição</strong>: {description}</p>
+                    <p><strong>URL</strong>: <a>{diagnosisUrl}</a></p>
+                    {examList && examList.lenght > 0 && <p><strong>Exames: </strong></p>}
+                    {examList && examList.map(exam=>{
+                        const {idExam, examType, location, summary, date} = exam
+                        return <CardDiagnose 
+                                    key={idExam}
+                                    isCrud={false}
+                                    idExam={idExam} 
+                                    examType={examType} 
+                                    location={location} 
+                                    summary={summary} 
+                                    date={date}
+                                />
+                    })}
+                </div>
+            )
         }
 
         return null
@@ -103,6 +122,9 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
             
             case INFO_TYPES.EXAM:
                 return infoData.examType
+
+            case INFO_TYPES.DIAGNOSES:
+                return DateService.getDateFormated(infoData.createdAt) 
 
             default:
                 return ''

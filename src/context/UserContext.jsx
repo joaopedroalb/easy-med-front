@@ -38,7 +38,7 @@ export const UserProvider = ({children}) =>{
                 return null
                 
             const {id, name, email, pictureUrl,role} = res.data
-            const isDoctor = !!role && role==='DOCTOR' 
+            const isDoctor = !!role && role==='doctor' 
 
             userLogin(id, name, email,isDoctor,pictureUrl)
         } catch (e) {

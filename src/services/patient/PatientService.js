@@ -162,6 +162,24 @@ const deleteExamById = async (idExam) => {
     }
 }
 
+const getDiagnosesById = async (idPatient) => {
+    try{
+        const { data } = await Api().get(`/patients/diagnoses/${idPatient}`)
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao buscar paciente.')
+    }
+}
+
+const createDiagnosis = async (newDiagnose) => {
+    try{
+        const { data } = await Api().post('/patients/diagnoses',{...newDiagnose})
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao criar exame.')
+    }
+}
+
 export const PatientService = {
     getById,
     create,
@@ -179,5 +197,8 @@ export const PatientService = {
     
     getExamsById,
     createExam,
-    deleteExamById
+    deleteExamById,
+
+    getDiagnosesById,
+    createDiagnosis
 }
