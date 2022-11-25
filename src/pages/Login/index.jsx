@@ -31,8 +31,10 @@ export default function Login() {
     if(result.error)
       return 
 
-    const {id, name, email, pictureUrl} = result.data
-    userLogin(id, name, email,false, pictureUrl)
+    const {id, name, email, pictureUrl,role} = result.data
+    const isDoctor = !!role && role==='DOCTOR' 
+
+    userLogin(id, name, email,isDoctor,pictureUrl)
     navigate('/profile')
   }
 

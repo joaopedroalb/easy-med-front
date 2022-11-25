@@ -166,13 +166,17 @@ export const PatientService = {
     getById,
     create,
     updateById,
+
     getAllergiesById,
     createAllergyById,
     deleteAllergiesById,
+
     getConditionsById,
     createConditionById,
     deleteConditionById,
+
     getMedicationsById,
+    
     getExamsById,
     createExam,
     deleteExamById
