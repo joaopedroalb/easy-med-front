@@ -7,6 +7,7 @@ import PatientProfile from "./Profile/Patient/PatientProfile";
 import DoctorProfile from "./Profile/Doctor/DoctorProfile";
 import ListPatient from "./ListPatient";
 import PatientByDoctor from "./Profile/PatientByDoctor";
+import DoctorSightPacient from "./DoctorSight-PacientProfile";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="dev/" element={<DoctorSightPacient /> } />
         </Routes>
       </BrowserRouter>
     </div>
