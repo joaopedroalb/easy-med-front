@@ -8,12 +8,14 @@ import DoctorProfile from "./Profile/Doctor/DoctorProfile";
 import ListPatient from "./ListPatient";
 import PatientByDoctor from "./Profile/PatientByDoctor";
 import DoctorSightPacient from "./DoctorSight-PacientProfile";
+import ConfigPage from "./Config";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path='config' element={<ConfigPage/>}/>
           <Route path="/" element={<Home />} />
           <Route path="signin/*" element={<Login />} />
           <Route path="signup/*" element={<PatientRecord />} />

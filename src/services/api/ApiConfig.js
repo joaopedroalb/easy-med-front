@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 export const Api = () => {
+    const baseUrl = localStorage.getItem('baseUrl')
+
     return axios.create({
-        baseURL:'https://easymed-api.herokuapp.com/api/v1',
+        baseURL:baseUrl,
     })
 }
