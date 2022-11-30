@@ -41,7 +41,7 @@ export default function ModalCreateInfo({open, handleClose, type, handleCreate, 
   
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const result = handleCreate(type, infoData)
+    const result = await handleCreate(type, infoData)
     if(result) 
       handleClose()
   }
@@ -58,6 +58,7 @@ export default function ModalCreateInfo({open, handleClose, type, handleCreate, 
             <div className='col-label'>
               <label>Doença</label>
               <select onChange={({target})=>handleChangeValue(target.value, 'idCondition')}>
+                <option selected value={null} disabled>Selecione uma doença</option>
                 {conditions.map(condition=>{
                   return <option key={condition.id} value={condition.id}>{condition.name}</option>
                 })}
@@ -84,6 +85,7 @@ export default function ModalCreateInfo({open, handleClose, type, handleCreate, 
             <div className='col-label'>
               <label>Doença</label>
               <select onChange={({target})=>handleChangeValue(target.value, 'idAllergy')}>
+              <option selected value={null} disabled>Selecione uma alergia</option>
                 {allergies.map(allergy=>{
                   return <option key={allergy.id} value={allergy.id}>{allergy.description}</option>
                 })}

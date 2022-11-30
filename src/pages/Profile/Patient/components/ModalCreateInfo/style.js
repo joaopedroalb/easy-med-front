@@ -4,7 +4,7 @@ export const ModalCreateForm = styled.form`
     background-color: var(--absolut-white);
     width: 850px;
     max-width: 95%;
-    height: 50vh;
+    min-height: 50vh;
     padding: 32px 8px;
     border-radius: 4px;
     display: flex;

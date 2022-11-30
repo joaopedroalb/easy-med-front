@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const ModalCreateForm = styled.form`
     background-color: var(--absolut-white);
-    width: 850px;
+    width: 80%;
     max-width: 95%;
     min-height: 50vh;
+    max-height: 90vh;
+    overflow-y: scroll;
     padding: 32px 8px;
     border-radius: 4px;
     display: flex;
@@ -12,6 +14,7 @@ export const ModalCreateForm = styled.form`
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
+    z-index: 999;
 
     .col-label{
         display: flex;
@@ -79,6 +82,27 @@ export const ModalCreateForm = styled.form`
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .medication-row{
+        padding: 12px;
+        background: #0089ff;
+        color: #fff;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    .btn-remove{
+        margin-left: auto;
+        width: 100px;
+        border: none;
+        padding: 6px;
+        border-radius: 2px;
+        background: #ff7979fc;
+        color: #ffff;
+        cursor: pointer;
+        font-weight: 600;
     }
 
     
