@@ -19,7 +19,7 @@ export default function InfoList({title, insertTitle, list, isEdit, isDelete, is
                                 infoData={item} 
                                 key={item.id} 
                                 handleDeleteItem={()=>crudActions?.handleDelete(item.id, typeInfo)}
-                                handleEditItem={()=>crudActions?.handleUpdate(item.id, typeInfo)}
+                                handleEditItem={()=>crudActions?.handleUpdate(item)}
                                 deleteItem={isDelete}
                                 editItem={isEdit}
                                 hasDescription={hasDescription}

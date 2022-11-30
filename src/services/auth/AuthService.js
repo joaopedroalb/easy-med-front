@@ -21,8 +21,6 @@ const authUser = async (token) => {
 
     try {
         const { data } = await Api().post("/auth", { token })
-        console.log('dentro do auth: ')
-        console.log(data)
         return { data: data, error: false }
     } catch (e) {
         return new ApiException(err.message || "Erro na tentativa da Autenticação.");

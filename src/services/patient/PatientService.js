@@ -121,7 +121,16 @@ const getMedicationsById = async (idPatient) => {
         const { data } = await Api().get(`/patients/medications/${idPatient}`)
         return {data: data, error:false}
     }catch(err){
-        return new ApiException(err.message || 'Erro ao buscar paciente.')
+        return new ApiException(err.message || 'Erro ao buscar medicamento.')
+    }
+} 
+
+const createMedicationsById = async (idPatient, medication) => {
+    try{
+        const { data } = await Api().post(`/patients/medications/${idPatient}`,{...medication})
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao criar medicamento.')
     }
 } 
 
@@ -131,7 +140,7 @@ const getExamsById = async (idPatient) => {
         const { data } = await Api().get(`/patients/exams/${idPatient}`)
         return {data: data, error:false}
     }catch(err){
-        return new ApiException(err.message || 'Erro ao buscar paciente.')
+        return new ApiException(err.message || 'Erro ao buscar Exame.')
     }
 } 
 
@@ -158,7 +167,16 @@ const deleteExamById = async (idExam) => {
         })
         return {data:data, error:false}
     }catch(err){
-        return new ApiException(err.message || 'Erro ao deletar doença')
+        return new ApiException(err.message || 'Erro ao deletar exame')
+    }
+}
+
+const editExam = async (examEdit) => {
+    try{
+        const { data } = await Api().patch('/patients/exams',{...examEdit})
+        return {data:data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao editar exame')
     }
 }
 
@@ -167,7 +185,7 @@ const getDiagnosesById = async (idPatient) => {
         const { data } = await Api().get(`/patients/diagnoses/${idPatient}`)
         return {data: data, error:false}
     }catch(err){
-        return new ApiException(err.message || 'Erro ao buscar paciente.')
+        return new ApiException(err.message || 'Erro ao buscar diagnostico.')
     }
 }
 
@@ -176,7 +194,7 @@ const createDiagnosis = async (newDiagnose) => {
         const { data } = await Api().post('/patients/diagnoses',{...newDiagnose})
         return {data: data, error:false}
     }catch(err){
-        return new ApiException(err.message || 'Erro ao criar exame.')
+        return new ApiException(err.message || 'Erro ao criar diagnostico.')
     }
 }
 
@@ -194,10 +212,12 @@ export const PatientService = {
     deleteConditionById,
 
     getMedicationsById,
+    createMedicationsById,
     
     getExamsById,
     createExam,
     deleteExamById,
+    editExam,
 
     getDiagnosesById,
     createDiagnosis

@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import Modal from '../../../../../components/common/Modal';
+import { useDisableBodyScroll } from '../../../../../hooks/useDisableBodyScroll';
 import CardDiagnose from '../CardDiagnose';
+import CreateMedicationRow from '../CreateMedicationRow';
 
 import { ModalCreateForm } from './style';
 
 
-function ModalCreateDiagnoses({open, handleClose, handleCreate, idDoctor, idPatient, exams}) {
+function ModalCreateDiagnoses({open, handleClose, handleCreateDiagnose, handleCreateMedications, idDoctor, idPatient, exams, medications=[]}) {
     const [diagnose, setDiagnose] = useState({
                                                 idPatient: +idPatient,
                                                 idDoctor: idDoctor,
@@ -14,6 +16,8 @@ function ModalCreateDiagnoses({open, handleClose, handleCreate, idDoctor, idPati
                                                 diagnosisUrl: '',
                                                 idExams: []
                                             })
+
+    const [medicationList, setMedicationList] = useState([])
 
     const handleChangeValue = (value, property) => {
         setDiagnose({...diagnose, [property]:value})
@@ -35,18 +39,13 @@ function ModalCreateDiagnoses({open, handleClose, handleCreate, idDoctor, idPati
         if(diagnose.description==='' || diagnose.diagnosisUrl==='')
             return null
         
-        handleCreate(diagnose)
-        setDiagnose({
-            idPatient: idPatient,
-            idDoctor: idDoctor,
-            description: '',
-            diagnosisUrl: '',
-            idExams: []
-        })
-        handleClose()
+        handleCreateDiagnose(diagnose)
+        handleCreateMedications(medicationList)
+        handleCloseModal()
     }
 
-    const handleCancel = () => {
+    const handleCloseModal = () => {
+      
         setDiagnose({
             idPatient: idPatient,
             idDoctor: idDoctor,
@@ -55,15 +54,28 @@ function ModalCreateDiagnoses({open, handleClose, handleCreate, idDoctor, idPati
             idExams: []
         })
 
+        setMedicationList([])
+
         handleClose()
     }
+
+    const handleAddMedication = (medication) =>{
+      setMedicationList(value=>[...value, medication])
+    }
+
+    const removeMedicationByIndex = (indexValue) => {
+      const newList = medicationList.filter((_,index)=>index !== indexValue)
+      setMedicationList(newList)
+    }
+
+  useDisableBodyScroll(open)
 
   return (
     <Modal
         open={open}
         handleClose={handleClose}
     >
-        <ModalCreateForm onClick={(event)=>event.stopPropagation()} onSubmit={handleSubmit}>
+        <ModalCreateForm onClick={(event)=>event.stopPropagation()} onSubmit={handleSubmit} className='custom-scrollbar'>
           <h1 className='title'>Adicione um Diagnostico</h1>
           <div className='row-label'>
             <div className='col-label'>
@@ -95,8 +107,24 @@ function ModalCreateDiagnoses({open, handleClose, handleCreate, idDoctor, idPati
                 )
             })
           }
+
+          <h1>Adicionar Medicamento</h1>
+          <CreateMedicationRow 
+            medications={medications}
+            handleCreate={handleAddMedication}
+          />
+          {medicationList && medicationList.map((item,index)=>{
+            return (
+              <div key={index} className='row-label medication-row'>
+                <p>{medications.filter(x=>x.id===item.idMedication)[0]?.name}</p>
+                <p>Dosagem: {item.dosage} {item.type}</p>
+                <p>Frequencia: {item.frequency}</p>
+                <button className='btn-remove' onClick={()=>removeMedicationByIndex(index)} type='button'>Remover</button>
+              </div>
+            )
+          })}
           <div className='row-label btn-container'>
-            <button className='cancel-btn'type='button' onClick={handleCancel}>Cancelar</button>
+            <button className='cancel-btn'type='button' onClick={handleCloseModal}>Cancelar</button>
             <button className='submit-btn'>Adicionar</button>
           </div>
         </ModalCreateForm>
