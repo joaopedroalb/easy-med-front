@@ -11,6 +11,7 @@ import InfoList from './components/InfoList';
 import { INFO_TYPES } from '../../../util/consts/types';
 import { CommonService } from '../../../services/common/CommonService';
 import Loading from '../../../components/common/Loading';
+import ModalEditExam from './components/ModalEditExam';
 
 
 export default function PatientProfile() {
@@ -33,7 +34,13 @@ export default function PatientProfile() {
                                               open:false,
                                               type:''
                                             })
-  useDisableBodyScroll(infoModal.open)
+
+  const [editExamModal, setEditExamModal] = useState({
+                                                        open:false,
+                                                        exam:null
+                                                      })
+
+  useDisableBodyScroll(infoModal.open || editExamModal.open)
 
   const getOptionsList = async () => {
     const medicationListResult = await CommonService.getMedications()
@@ -100,6 +107,10 @@ export default function PatientProfile() {
     setInfoModal({open:true, type:type})
   }
 
+  const closeModalEditExam = () => {
+    setEditExamModal({open:false, exam:null})
+  }
+
   const closeModalType = () => setInfoModal({open:false, type:''})
 
   const handleDeleteInfo = async (id, type) => {
@@ -121,9 +132,19 @@ export default function PatientProfile() {
       return !result.error
     }
   }
+
+  const handleUpdteEditExam = (editExam) => {
+    setEditExamModal({open:true, exam:editExam})
+  }
   
-  const handleUpdate = (id,type) => {
-   
+  const handleUpdate = async (type, newValue) => {
+   if(type === INFO_TYPES.EXAM){
+      const {createdAt, id, ...restExam} = newValue
+      const result = await PatientService.editExam({idExam:id, ...restExam})
+      if(!result.error) await getUserInfos()
+      return !result.error
+   }
+    
   }
 
   const handleCreate = async (type, data) => {
@@ -131,19 +152,19 @@ export default function PatientProfile() {
       const newExam = {...data, idPatient: user.id}
       const result = await PatientService.createExam(newExam)
       if(!result.error) await getUserInfos()
-      return true
+      return !result.error
     }
 
     if(type === INFO_TYPES.ALLERGY){
       const result = await PatientService.createAllergyById(user.id, data)
       if(!result.error) await getUserInfos()
-      return true
+      return !result.error
     }
 
     if(type === INFO_TYPES.HEREDITARY){
       const result = await PatientService.createConditionById(user.id, data)
       if(!result.error) await getUserInfos()
-      return true
+      return !result.error
     }
 
   }
@@ -173,6 +194,16 @@ export default function PatientProfile() {
           allergies={allergyList}
           conditions={conditionList}
         />
+        <ModalEditExam 
+          open={editExamModal.open} 
+          handleClose={closeModalEditExam} 
+          exam={editExamModal.exam} 
+          handleCreate={(value)=>{
+            handleUpdate(INFO_TYPES.EXAM,value)
+            closeModalEditExam()
+          }} 
+          handleCancel={closeModalEditExam}
+        />
         <InfoList 
           title='Doenças Hereditárias'
           insertTitle='Adicionar nova Doença Hereditária'
@@ -194,7 +225,6 @@ export default function PatientProfile() {
           typeInfo={INFO_TYPES.ALLERGY}
           list={allergies}
           isDelete
-          isEdit
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -228,7 +258,7 @@ export default function PatientProfile() {
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
-            handleUpdate: handleUpdate
+            handleUpdate: handleUpdteEditExam
           }}
           hasDescription={true}
           theme='white'

@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import LayoutPage from '../../../components/layout/LayoutPage'
 import { UserContext } from '../../../context/UserContext'
+import { CommonService } from '../../../services/common/CommonService'
 import { PatientService } from '../../../services/patient/PatientService'
 import { INFO_TYPES } from '../../../util/consts/types'
 import { MaskService } from '../../../util/maskService'
@@ -18,6 +19,8 @@ export default function PatientByDoctor() {
     const {id} = useParams()
 
     const [patient, setPatient] = useState(null)
+
+    const [medicationsDefault, setMedicationsDefault] = useState([])
 
     const [medications, setMedications] = useState([])
     const [allergies, setAllergies] = useState([])
@@ -40,6 +43,22 @@ export default function PatientByDoctor() {
 
     const handleAddDiagnose =  async (diagnose) => {
         await createDiagnone(diagnose)
+    }
+
+    const handleAddMedicationByList = async (newMedications) => {
+        await newMedications.forEach(async newMedication=>{
+            try{
+                await PatientService.createMedicationsById(id, newMedication)
+            }catch(err){
+                console.log('não adicionou o medicamento')
+            }
+        })
+        await getUserInfos(id)
+    }
+
+    const getOptionsList = async () => {
+        const medicationListResult = await CommonService.getMedications()
+        if(!medicationListResult.error) setMedicationsDefault(medicationListResult.data)
     }
 
     const getUserInfos = async (id) => {
@@ -67,6 +86,7 @@ export default function PatientByDoctor() {
 
        setPatient(result.data)
        getUserInfos(result.data.id)
+       getOptionsList()
        
     },[])
 
@@ -95,10 +115,12 @@ export default function PatientByDoctor() {
                 <ModalCreateDiagnoses 
                     open={diagModal} 
                     handleClose={handleCloseModal} 
-                    handleCreate={handleAddDiagnose} 
+                    handleCreateDiagnose={handleAddDiagnose} 
+                    handleCreateMedications={handleAddMedicationByList}
                     idDoctor={user.id}
                     idPatient={id} 
                     exams={exams}
+                    medications={medicationsDefault}
                 />
                 <div className='info-container'>
                    <ImageContainer>
