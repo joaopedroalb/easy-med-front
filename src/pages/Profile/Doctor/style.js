@@ -12,6 +12,7 @@ export const Content = styled.div`
     display: flex;
     padding: 110px;
     justify-content: center;
+    align-items: center;
 `
 export const Informations = styled.div`
     display: grid;
@@ -29,7 +30,6 @@ export const DoctorInfo = styled.div`
     border-radius: 7px;
     border: 1px solid white;
 `
-
 
 export const Diagnostic = styled.div`
     width: 850px;
@@ -103,3 +103,69 @@ export const BoxLabelPatient = styled.div`
     background-color: var(--blue-500);
     border-radius: 8px;
 `
+export const ContentFAQ = styled.div`
+    width: 1200px;
+    height: 546px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+`
+
+export const SectionFAQ = styled.div`
+  width: 648px;
+  height: 546px;
+  border-radius: 16px;
+  border: 1px solid #28c3d2;
+`
+export const QuestionsFAQ = styled.div`
+    width: 640px;
+    height: 418px;
+    border-radius: 8px;
+    background-color: var(--absolut-white);
+    border: 1px solid #28c3d2;
+    position: relative;
+    right: 550px;
+    top: 30px;
+`
+export const QuestionWhite = styled.div`
+    width: 100%;
+    height: 20%;
+    background-color: var(--absolut-white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .circle {
+        width: 24px;
+        height: 24px;
+        background-color: red;
+        border-radius: 50px;
+        margin-left: 15px;
+    }
+    .arrowRight {
+        width: 24px;
+        height: 24px;
+        margin-right: 15px;
+    }
+`
+export const QuestionGray = styled.div`
+    width: 100%;
+    height: 20%;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .circle {
+        width: 24px;
+        height: 24px;
+        background-color: red;
+        border-radius: 50px;
+        margin-left: 15px;
+    }
+    .arrowRight {
+        width: 24px;
+        height: 24px;
+        margin-right: 15px;
+    }
+`
+
+
