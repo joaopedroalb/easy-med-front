@@ -10,7 +10,7 @@ export const ConfigProvidder = ({children}) =>{
 
     useEffect(()=>{
         if(!localStorage.getItem('baseUrl'))
-            handleChangeUrlLocalStorage('https://easymed-api.herokuapp.com/api/v1')
+            handleChangeUrlLocalStorage('https://easymed-backend.onrender.com/api/v1')
     },[])
 
     return(
