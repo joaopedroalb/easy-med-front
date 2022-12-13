@@ -126,6 +126,7 @@ export const QuestionsFAQ = styled.div`
     position: relative;
     right: 550px;
     top: 30px;
+    overflow: auto;
 `
 export const QuestionWhite = styled.div`
     width: 100%;
@@ -134,6 +135,11 @@ export const QuestionWhite = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &:hover {
+        background-color: var( --blue-500);
+        cursor: pointer;
+    }
     .circle {
         width: 24px;
         height: 24px;
@@ -150,10 +156,16 @@ export const QuestionWhite = styled.div`
 export const QuestionGray = styled.div`
     width: 100%;
     height: 20%;
-    background-color: var(--white);
+    background-color: var(--gray-100);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    &:hover {
+        background-color: var( --blue-500);
+    }
+    &:active {
+        background-color: var( --blue-500);
+    }
     .circle {
         width: 24px;
         height: 24px;

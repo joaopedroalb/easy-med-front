@@ -6,10 +6,7 @@ export default function HeaderDoctor() {
     <>
       <Header>
         <TitleLogo>EasyMed</TitleLogo>
-        <Nav>
-          <BtnHeader>Calendário</BtnHeader>
-          <BtnHeader>FAQ</BtnHeader>
-        </Nav>
+        
       </Header>
     </>
   );

@@ -2,41 +2,20 @@ import React from "react";
 import {
   Body,
   Content,
-  DoctorInfo,
-  Informations,
-  Clinics,
-  Patient,
-  Diagnostic,
-  BoxLabelDiagnostic,
-  BoxLabelClinics,
-  BoxLabelPatient,
   ContentFAQ,
   SectionFAQ,
   QuestionsFAQ,
   QuestionWhite,
   QuestionGray
 } from "./style";
-import HeaderDoctor from "../../../components/layout/Headers/HeaderDoctor";
-import ArrowRight from "../../../assets/images/arrow-right.svg";
-import Circle from "../../../assets/images/circle.svg";
+import HeaderDoctor from "../../components/layout/Headers/HeaderDoctor";
+import ArrowRight from "../../../src/assets/images/arrow-right.svg";
 
-export default function DoctorProfile() {
+export default function FAQ() {
   return (
     <Body>
       <HeaderDoctor />
       <Content>
-        {/* <Informations>
-          <DoctorInfo></DoctorInfo>
-          <Diagnostic>
-            <BoxLabelDiagnostic>Diagnósticos Emitidos</BoxLabelDiagnostic>
-          </Diagnostic>
-          <Clinics>
-            <BoxLabelClinics>Clínicas</BoxLabelClinics>
-          </Clinics>
-          <Patient>
-            <BoxLabelPatient>Pacientes</BoxLabelPatient>
-          </Patient>
-        </Informations> */}
         <ContentFAQ>
           <SectionFAQ>
             <QuestionsFAQ>
