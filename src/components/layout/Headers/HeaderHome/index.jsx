@@ -1,5 +1,5 @@
 import React from "react";
-import { TitleLogo, Header, ButtonLogin, IconContent } from "./style";
+import { TitleLogo, Header, ButtonLogin, IconContent, NavItem} from "./style";
 import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 export default function HomeHeader() {
@@ -9,7 +9,7 @@ export default function HomeHeader() {
         <TitleLogo>EasyMed</TitleLogo>
         <div className="link-container">
           <Link to={'/faq'}>
-            <ButtonLogin>FAQ</ButtonLogin> 
+            <NavItem>Nosso FAQ</NavItem> 
           </Link>
           <Link to="/signin">
             <ButtonLogin>

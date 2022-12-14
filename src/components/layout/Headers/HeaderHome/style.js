@@ -12,7 +12,7 @@ export const Header = styled.div`
   .link-container{
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
   }
 `
 
@@ -46,4 +46,10 @@ export const IconContent = styled.div`
   padding: 8px;
   border: 2px solid var(--white);
   border-radius: 50%;
+`
+
+export const NavItem = styled.p`
+  color: var(--white);
+  font-size: 18px;
+  font-weight: bold;
 `

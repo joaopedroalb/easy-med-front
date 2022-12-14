@@ -21,15 +21,15 @@ export default function HeaderLogged({user, logout}) {
         </TitleLogo>
       </Link>
       <UserActions>
+        <Link to='/faq'>
+          <p>Nosso FAQ</p>
+        </Link>
         {
           userIsDoctor() ? 
           (
             <>
               <Link to='/list'>
                 <p>Pacientes</p>
-              </Link>
-              <Link to='/faq'>
-                <p>FAQ</p>
               </Link>
             </>
           ) : (

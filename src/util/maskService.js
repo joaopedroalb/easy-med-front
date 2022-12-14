@@ -7,6 +7,10 @@ const CpfConverter = (cpf) => {
     return value
 }
 
+const CpfReverte = (cpf) => { 
+    return cpf.replace( /\D/g, '')
+}
+
 const PhoneConverter = (phone) => {
     let value = phone
     value = value.replace( /[^\d]/g , "");
@@ -16,7 +20,14 @@ const PhoneConverter = (phone) => {
     return value
 }
 
+const PhoneReverte = (phone) => { 
+    return phone.replace( /[^\d]/g , '')
+}
+
+
 export const MaskService = {
     CpfConverter,
-    PhoneConverter
+    CpfReverte,
+    PhoneConverter,
+    PhoneReverte
 }
