@@ -11,4 +11,9 @@ export const ButtonTheme = styled.button`
     color: ${props=>props.theme.color};
 
     cursor: pointer;
+
+    &:disabled { 
+        cursor: not-allowed;
+        opacity: .5;
+    }
 `

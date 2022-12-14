@@ -2,6 +2,7 @@ import React from "react";
 import { InputContainer, InputStyled } from "./style";
 
 export default function Input({
+  isError = false,
   label,
   name,
   handleChange,
@@ -12,6 +13,7 @@ export default function Input({
     <InputContainer>
       <label htmlFor={name}>{label}</label>
       <InputStyled
+        isError={isError}
         id={name}
         name={name}
         onChange={handleChange}
