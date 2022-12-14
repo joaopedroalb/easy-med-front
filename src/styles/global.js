@@ -40,6 +40,7 @@ const GlobalStyle = createGlobalStyle`
 
         --gray-100: #DCE9E2;
         --gray:#626262;
+        --gray-alt:#f5f5f5;
         
 
         --mobile-pixel:615px;
