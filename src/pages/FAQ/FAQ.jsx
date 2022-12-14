@@ -14,37 +14,33 @@ import {
 } from "./style";
 import HeaderDoctor from "../../components/layout/Headers/HeaderDoctor";
 import ArrowRight from "../../../src/assets/images/arrow-right.svg";
+import LayoutPage from "../../components/layout/LayoutPage";
 
 const questions = [
   {
     questionId: 1,
-    question: "Pergunta 1",
-    title: "Pergunta 1",
-    message: "Resposta 1",
+    question: "Pra quê serve a EasyMed?",
+    message: "A EasyMed serve para juntar todas as suas informações médicas num lugar só, trazendo praticidade e segurança",
   },
   {
     questionId: 2,
-    question: "Pergunta 2",
-    title: "Pergunta 2",
-    message: "Resposta 2",
+    question: "Meu dados estão seguros?",
+    message: "Seus dados estão protegidos na nuvem",
   },
   {
     questionId: 3,
-    question: "Pergunta 3",
-    title: "Pergunta 3",
-    message: "Resposta 3",
+    question: "Como adiciono alergias e doenças familiares?",
+    message: "No menu do perfil, é possível selecionar tanto alergias quanto condições familiares para adicionar no seu perfil de paciente",
   },
   {
     questionId: 4,
-    question: "Pergunta 4",
-    title: "Pergunta 4",
-    message: "Resposta 4",
+    question: "Qualquer médico pode mexer em qualquer informação minha?",
+    message: "Não, somente os médicos que você autorizar quando fizer uma consulta podem alterar informações relacionadas",
   },
   {
     questionId: 5,
-    question: "Pergunta 5",
-    title: "Pergunta 5",
-    message: "Resposta 5",
+    question: "Como coloco os meus exames na plataforma?",
+    message: "No menu do perfil, é possível colocar o link do arquivo do seu exame",
   },
 ];
 
@@ -59,8 +55,7 @@ export default function FAQ() {
   };
 
   return (
-    <Body>
-      <HeaderDoctor />
+    <LayoutPage>
       <Content>
         <ContentFAQ>
           <SectionFAQ>
@@ -73,7 +68,7 @@ export default function FAQ() {
                   return (
                     <Component
                       key={questionId}
-                      onClick={() => handleQuestionClick(title, message)}
+                      onClick={() => handleQuestionClick(question, message)}
                     >
                       <div className="circle"></div>
                       <p>{question}</p>
@@ -92,6 +87,6 @@ export default function FAQ() {
           </SectionFAQ>
         </ContentFAQ>
       </Content>
-    </Body>
+    </LayoutPage>
   );
 }

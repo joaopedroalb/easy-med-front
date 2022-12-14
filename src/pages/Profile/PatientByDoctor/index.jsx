@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { useCallback } from 'react'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import Loading from '../../../components/common/Loading'
 import LayoutPage from '../../../components/layout/LayoutPage'
 import { UserContext } from '../../../context/UserContext'
 import { CommonService } from '../../../services/common/CommonService'
@@ -14,10 +15,16 @@ import InfoList from '../Patient/components/InfoList'
 import ModalCreateDiagnoses from './components/ModalCreateDiagnoses'
 import { ImageContainer, ProfileBg } from './style'
 
+const IMAGE_DEFAULT = 'https://cdn.discordapp.com/attachments/469630958811742212/1022924520002158624/unknown.png'
+
 export default function PatientByDoctor() {
     const {user} = useContext(UserContext)
     const {id} = useParams()
 
+    const [photo, setPhoto] = useState(null)
+    const onError = () => setPhoto(IMAGE_DEFAULT);
+
+    const [loading, setLoading] = useState(true)
     const [patient, setPatient] = useState(null)
 
     const [medicationsDefault, setMedicationsDefault] = useState([])
@@ -87,6 +94,9 @@ export default function PatientByDoctor() {
        setPatient(result.data)
        getUserInfos(result.data.id)
        getOptionsList()
+       setPhoto(result.data.pictureUrl)
+
+       setLoading(false)
        
     },[])
 
@@ -102,6 +112,11 @@ export default function PatientByDoctor() {
     useEffect(()=>{
         getData()
     },[])
+
+    if(loading)
+        return (
+            <Loading/>
+        )
 
     if(!patient)
         return (
@@ -124,7 +139,7 @@ export default function PatientByDoctor() {
                 />
                 <div className='info-container'>
                    <ImageContainer>
-                        <img src={patient.pictureUrl} />
+                        <img src={photo ? photo : IMAGE_DEFAULT} onError={onError}/>
                    </ImageContainer>
                    <div className='info-box'>
                         <h1 className='title'>{patient.name}</h1>
