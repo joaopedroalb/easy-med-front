@@ -1,3 +1,7 @@
+# ☁️ Veja a aplicação na WEB
+
+[https://easy-med-front.vercel.app/](https://easy-med-front.vercel.app/)
+
 # 📄 Sobre o Projeto
 
 Esse projeto para a conclusão da cadeira de Projeto Aplicado 2 do Curso de Analise e Desenvolvimento de Sistemas da Universidade de Fortaleza. O objetivo desse projeto é ser um MVP para demostrar como seria o uso da EasyMed. A EasyMed é uma plataforma que conecta o médico e o paciente de uma forma que vai suprir muitas consultas “rápidas” , a EasyMed para o paciente vai servir como um backup de diversas informações importantes que ele vai precisar utilizar em consultas futuras com qualquer medico, ele vai poder receber resultados de consultas medicas vinda de algum medico que ele se consultou. Para o Médico a EasyMed é uma plataforma onde ele vai poder enviar consultas e ver informações importante de seus pacientes futuros/atuais como alergias, doenças, medicamentos e exames antigos.  
@@ -44,7 +48,3 @@ Com o Backend rodando localmente você pode mudar não próprio front a url da A
 ![image](https://user-images.githubusercontent.com/62646489/207644663-71a00eb0-3a23-4016-9ce8-12971831fcdf.png)
 
 Com isso você vai conseguir utilizar a aplicação normalmente. 
-
-# ☁️ Veja a aplicação na WEB
-
-## [https://easy-med-front.vercel.app/](https://easy-med-front.vercel.app/)
