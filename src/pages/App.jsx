@@ -4,7 +4,7 @@ import Home from "./Home";
 import Login from "./Login";
 import PatientRecord from "./PatientRecord";
 import PatientProfile from "./Profile/Patient/PatientProfile";
-import DoctorProfile from "./Profile/Doctor/DoctorProfile";
+import FAQ from "./FAQ/FAQ";
 import ListPatient from "./ListPatient";
 import PatientByDoctor from "./Profile/PatientByDoctor";
 import DoctorSightPacient from "./DoctorSight-PacientProfile";
@@ -19,7 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="signin/*" element={<Login />} />
           <Route path="signup/*" element={<PatientRecord />} />
-          <Route path="doctor-profile/*" element={<DoctorProfile />} />
+          <Route path="faq/*" element={<FAQ />} />
           <Route
             path="profile/"
             element={

@@ -5,9 +5,11 @@ export const Header = styled.div`
   height: 100px;
   background: var(--blue-600);
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  // justify-content: space-between;
   padding: 0 35px 0 35px;
+
 `
 
 export const TitleLogo = styled.h1`
@@ -15,12 +17,19 @@ export const TitleLogo = styled.h1`
   font-style: italic;
   font-size: 2.5rem;
 `
-export const BtnHeader = styled.a`
+
+export const Nav = styled.div`
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  gap: 20px;
+`
+export const BtnHeader = styled.div`
   color: var(--absolut-white);
-  margin-right: 30px;
   cursor: pointer;
   font-weight: bold;
   font-style: italic;
+  font-size: 26px;
   font-family: 'Montserrat';
   &:hover {
     color: var(--white);

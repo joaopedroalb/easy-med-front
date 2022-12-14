@@ -8,6 +8,12 @@ export const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 35px 0 35px;
+
+  .link-container{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 `
 
 export const TitleLogo = styled.h1`
