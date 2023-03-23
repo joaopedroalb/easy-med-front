@@ -3,13 +3,13 @@ import { ApiException } from "../api/ApiExpection"
 
 const login = async (email, password) => {
     try {
-        const {data} = await Api().post('/login',{
+        const {data} = await Api().post('auth/login',{
             email:email,
             password:password
         })
 
         localStorage.setItem("token", data.token)
-        return {data: data, error:false}
+        return {data: data.patient, error:false}
     } catch(err) {
         return new ApiException(err.message || 'Erro na tentativa de login.')
     }
@@ -20,7 +20,7 @@ const authUser = async (token) => {
         return new ApiException('Erro token não existe')
 
     try {
-        const { data } = await Api().post("/auth", { token })
+        const { data } = await Api().post('/auth/refresh', { token })
         return { data: data, error: false }
     } catch (e) {
         return new ApiException(err.message || "Erro na tentativa da Autenticação.");
