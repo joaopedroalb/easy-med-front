@@ -3,15 +3,14 @@ import { ApiException } from "../api/ApiExpection"
 
 const create = async (newPatient) => {
     try{
-        const { data } = await Api().post('/patients/signup',{
+        const { data } = await Api().post('/patients/',{
             name: newPatient.name,
             cpf: newPatient.cpf,
-            phone: newPatient.phone,
             email: newPatient.email,
             password: newPatient.password
         })
         localStorage.setItem('token',data.token)
-        return {data: data, error:false}
+        return {data: data.patient, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao criar paciente.')
     }
@@ -40,7 +39,7 @@ const updateById = async (idPatient, updatePatient) => {
             birthDate: updatePatient.birthDate,
             weight: updatePatient.weight
         })
-        return {data: data, error:false}
+        return {data: data.patient, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao atualizar as informações do paciente.')
     }
