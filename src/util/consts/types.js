@@ -6,3 +6,9 @@ export const INFO_TYPES = {
     ALLERGY: 'ALLERGY',
     DIAGNOSES: 'DIAGNOSES' 
 }
+
+export const INSURANCE_TYPES = {
+    UNIMED: 'UNIMED',
+    HAPVIDA: 'HAPVIDA',
+    BRADESCO: 'BRADESCO',
+  }

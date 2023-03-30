@@ -33,7 +33,7 @@ const updateById = async (idPatient, updatePatient) => {
             phone: updatePatient.phone,
             email: updatePatient.email,
             password: updatePatient.password,
-            pictureUrl: updatePatient.pictureUrl,
+            profilePicture: updatePatient.profilePicture,
             height: updatePatient.height,
             gender: updatePatient.gender,
             birthDate: updatePatient.birthDate,

@@ -9,8 +9,14 @@ import ListPatient from "./ListPatient";
 import PatientByDoctor from "./Profile/PatientByDoctor";
 import DoctorSightPacient from "./DoctorSight-PacientProfile";
 import ConfigPage from "./Config";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import DoctorProfile from "./Profile/Doctor/DoctorProfile";
 
 function App() {
+  const {user, loadingAuth} = useContext(UserContext)
+ 
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,14 +26,16 @@ function App() {
           <Route path="signin/*" element={<Login />} />
           <Route path="signup/*" element={<PatientRecord />} />
           <Route path="faq/*" element={<FAQ />} />
-          <Route
-            path="profile/"
-            element={
-              <ProtectedRoute doctorView={false}>
-                <PatientProfile />
-              </ProtectedRoute>
-            }
-          />
+          {
+            user !== null && (
+              <Route
+                path="profile/"
+                element={
+                  user.isDoctor ? <DoctorProfile /> :  <PatientProfile/>
+                }
+              />
+            )
+          }
           <Route
             path="list"
             element={

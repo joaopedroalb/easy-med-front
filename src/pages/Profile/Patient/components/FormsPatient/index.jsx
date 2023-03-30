@@ -109,9 +109,9 @@ function FormsPatient({userData, changeUserData}) {
                     <InputRow>
                         <label>Foto: </label>
                         <input disabled={isDisable}
-                            value={editUser.pictureUrl} 
+                            value={editUser.profilePicture} 
                             type='text' 
-                            onChange={({target})=>handleChangeeditUser(target.value, 'pictureUrl')}
+                            onChange={({target})=>handleChangeeditUser(target.value, 'profilePicture')}
                         />
                     </InputRow>
                 </ColumnInputContent>
