@@ -94,7 +94,7 @@ export default function PatientByDoctor() {
        setPatient(result.data)
        getUserInfos(result.data.id)
        getOptionsList()
-       setPhoto(result.data.pictureUrl)
+       setPhoto(result.data.profilePicture)
 
        setLoading(false)
        

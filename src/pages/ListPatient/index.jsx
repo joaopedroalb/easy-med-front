@@ -31,7 +31,7 @@ export default function ListPatient() {
                     return (
                         <PatientCard key={patient.id}>
                             <div className='userInfo'>
-                                <img src={`${!patient.pictureUrl  ? IMAGE_DEFAULT:patient.pictureUrl}`}/>
+                                <img src={`${!patient.profilePicture  ? IMAGE_DEFAULT:patient.profilePicture}`}/>
                                 <p>{patient.name}</p>
                             </div>
                             <div className='btnActions'>

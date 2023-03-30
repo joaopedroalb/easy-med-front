@@ -8,8 +8,8 @@ export const UserProvider = ({children}) =>{
     const [loadingAuth, setLoadingAuth] = useState(true)
     const [user,setUser] = useState(null)
 
-    const userLogin = (id,name,email,isDoctor=false, pictureUrl) =>{
-        setUser({id,name,email,isDoctor,pictureUrl})
+    const userLogin = (id,name,email,isDoctor=false, profilePicture) =>{
+        setUser({id,name,email,isDoctor,profilePicture})
     } 
 
     const userIsDoctor = () => {
@@ -37,10 +37,10 @@ export const UserProvider = ({children}) =>{
             if(res.error) 
                 return null
                 
-            const {id, name, email, pictureUrl,role} = res.data
+            const {id, name, email, profilePicture,role} = res.data
             const isDoctor = !!role && role==='doctor' 
 
-            userLogin(id, name, email,isDoctor,pictureUrl)
+            userLogin(id, name, email,isDoctor,profilePicture)
         } catch (e) {
 
         } finally {

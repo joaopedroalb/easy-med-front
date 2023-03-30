@@ -8,7 +8,7 @@ const IMAGE_DEFAULT = 'https://cdn.discordapp.com/attachments/469630958811742212
 
 export default function HeaderLogged({user, logout}) {
 
-  const [photo, setPhoto] = useState(user.pictureUrl)
+  const [photo, setPhoto] = useState(user.profilePicture)
   const onError = () => setPhoto(IMAGE_DEFAULT);
 
   const {userIsDoctor} = useContext(UserContext)
@@ -30,6 +30,10 @@ export default function HeaderLogged({user, logout}) {
             <>
               <Link to='/list'>
                 <p>Pacientes</p>
+              </Link>
+              <Link to={'/profile'} className='profile-anchor'>
+                <p>{user.name}</p>
+                <img src={photo ? photo : IMAGE_DEFAULT} onError={onError}/>
               </Link>
             </>
           ) : (

@@ -182,7 +182,7 @@ export default function PatientProfile() {
         <HeaderProfile
               name={userData.name}
               hasBack={false}
-              photoUrl={userData.pictureUrl}
+              photoUrl={userData.profilePicture}
           />
 
         <FormsPatient userData={userData} changeUserData={setUserData}/>
