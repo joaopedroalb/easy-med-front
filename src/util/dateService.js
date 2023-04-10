@@ -6,11 +6,10 @@ const getDateFormated  = (value) => {
 const getDateInput = (value) => {
     const date = new Date(value)
 
-    const day = ("0" + date.getDate()).slice(-2);
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const result = date.getFullYear()+"-"+(month)+"-"+(day) ;
-    
-    return result
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 export const DateService = {

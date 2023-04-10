@@ -17,7 +17,7 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
 
     const ICON_CARD = () => {
         switch(typeInfo){
-            case INFO_TYPES.HEREDITARY:
+            case INFO_TYPES.CONDITION:
             case INFO_TYPES.DISEASE:
                 return <FaDisease className='icon'/>
 
@@ -40,44 +40,43 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
 
     const DescriptionCard = () => {
 
-        if(typeInfo === INFO_TYPES.HEREDITARY){
-            const { symptoms } = infoData
+        if(typeInfo === INFO_TYPES.CONDITION){
+            const { description } = infoData
             return (
                 <div className='description-box'>
                     <h2>Sintoma</h2>
-                    <p>{symptoms}</p>
+                    <p>{description}</p>
                 </div>
             )
         }
         
         if(typeInfo === INFO_TYPES.ALLERGY){
-            const { symptoms } = infoData
+            const { symptons } = infoData
             return (
                 <div className='description-box'>
                     <h2>Sintoma</h2>
-                    <p>{symptoms}</p>
+                    <p>{symptons}</p>
                 </div>
             )
         }
 
         if(typeInfo === INFO_TYPES.MEDICATION){
-            const { dosage, type, frequency } = infoData
+            const { frequency, startedAt } = infoData
             return (
                 <div className='description-box'>
-                    <p>Dosagem: {dosage}{type}</p>
                     <p>Frequencia: {frequency}</p>
+                    <p>Data de inicio: {DateService.getDateFormated(startedAt)}</p>
                 </div>
             )
         }
 
         if(typeInfo === INFO_TYPES.EXAM){
-            const  {examType, location, summary, date}  = infoData
+            const  {examType, location, result}  = infoData
             return (
                 <div className='description-box'>
                     <p><strong>Tipo</strong>: {examType}</p>
                     <p><strong>Local</strong>: {location}</p>
-                    <p><strong>Resumo</strong>: {summary}</p>
-                    <p><strong>Data</strong>: {DateService.getDateFormated(date)}</p>
+                    <p><strong>Resultado</strong>:{`${result}`}</p>
                 </div>
             )
         }
@@ -110,12 +109,12 @@ export default function InfoCard({typeInfo, infoData, handleDeleteItem, handleEd
 
     const TitleText = () => {
         switch(typeInfo){
-            case INFO_TYPES.HEREDITARY:
+            case INFO_TYPES.CONDITION:
             case INFO_TYPES.DISEASE:
                 return infoData.name
 
             case INFO_TYPES.ALLERGY:
-                return infoData.description
+                return infoData.name
 
             case INFO_TYPES.MEDICATION: 
                 return infoData.name

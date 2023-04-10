@@ -6,7 +6,7 @@ import { EXAM_TYPES } from '../../../../../util/enum'
 import { ModalCreateForm } from './style'
 
 const INITAL_VALUE = {
-  [INFO_TYPES.HEREDITARY]: {
+  [INFO_TYPES.CONDITION]: {
     idCondition: 0,
     isActive: true,
     isInFamily: true,
@@ -46,7 +46,7 @@ export default function ModalCreateInfo({open, handleClose, type, handleCreate, 
       handleClose()
   }
 
-  if(type === INFO_TYPES.HEREDITARY)
+  if(type === INFO_TYPES.CONDITION)
     return (
       <Modal
         open={open}

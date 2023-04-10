@@ -28,8 +28,7 @@ export default function PatientProfile() {
   const [allergies, setAllergies] = useState([])
   const [conditions, setConditions] = useState([])
   const [exams, setExams] = useState([])
-  const [diagnoses,setDiagnoses] = useState([])
-
+  
   const [infoModal, setInfoModal] = useState({
                                               open:false,
                                               type:''
@@ -65,18 +64,7 @@ export default function PatientProfile() {
 
     const examsResult  = await PatientService.getExamsById(user.id)
     if(!examsResult.error) setExams(examsResult.data)
-
-    const diagnosesResult = await PatientService.getDiagnosesById(user.id)
-    if(!diagnosesResult.error) setDiagnoses(diagnosesResult.data)
   }
-
-  const getInfoListDataDiagnose = () => {
-    return diagnoses.map(item=>{
-        const diagnosesExams = item.relatedExams.map(x=> x.idExam)
-        const listExamData = exams.filter(exam=> diagnosesExams.includes(exam.id))
-        return {...item, examList:listExamData}
-    })
-}
 
   const getData = useCallback(async ()=>{
     const result = await PatientService.getById(user.id)
@@ -114,7 +102,7 @@ export default function PatientProfile() {
   const closeModalType = () => setInfoModal({open:false, type:''})
 
   const handleDeleteInfo = async (id, type) => {
-    if(type === INFO_TYPES.HEREDITARY){
+    if(type === INFO_TYPES.CONDITION){
       const result = await PatientService.deleteConditionById(id)
       if(!result.error) await getUserInfos()
       return !result.error
@@ -161,12 +149,6 @@ export default function PatientProfile() {
       return !result.error
     }
 
-    if(type === INFO_TYPES.HEREDITARY){
-      const result = await PatientService.createConditionById(user.id, data)
-      if(!result.error) await getUserInfos()
-      return !result.error
-    }
-
   }
 
   const RenderBody = () => {
@@ -207,7 +189,7 @@ export default function PatientProfile() {
         <InfoList 
           title='Doenças Hereditárias'
           insertTitle='Adicionar nova Doença Hereditária'
-          typeInfo={INFO_TYPES.HEREDITARY}
+          typeInfo={INFO_TYPES.CONDITION}
           list={conditions}
           isDelete
           crudActions={{
@@ -215,7 +197,7 @@ export default function PatientProfile() {
             handleDelete: handleDeleteInfo,
             handleUpdate: handleUpdate
           }}
-          hasDescription={false}
+          hasDescription
           theme='dark'
         />
 
@@ -262,15 +244,6 @@ export default function PatientProfile() {
           }}
           hasDescription={true}
           theme='white'
-        />
-
-        <InfoList 
-            title='Diagnósticos'
-            insertTitle=''
-            typeInfo={INFO_TYPES.DIAGNOSES}
-            list={getInfoListDataDiagnose()}
-            hasDescription
-            theme='dark'
         />
       </>
     )

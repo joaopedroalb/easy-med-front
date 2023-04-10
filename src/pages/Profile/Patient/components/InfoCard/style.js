@@ -5,7 +5,7 @@ const IconTypeColor =  type => {
     switch(type){
         case  INFO_TYPES.ALLERGY: 
             return  '#db5d5d'
-        case INFO_TYPES.HEREDITARY: 
+        case INFO_TYPES.CONDITION: 
             return '#62a172'
         case INFO_TYPES.MEDICATION: 
             return '#155ac3'
