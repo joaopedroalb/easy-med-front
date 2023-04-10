@@ -12,9 +12,15 @@ export const InfoCardContainer = styled.div`
 
     background-color: ${({theme}) => theme ==='dark' ? '#85c3e159':'var(--white)'};
 
-    .title-content, .insert-row{
+    .title-content, .insert-row, .insert-row-center{
         width: 100%;
         max-width: 1400px;
+    } 
+
+    .insert-row-center{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .title-content {

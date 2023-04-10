@@ -36,7 +36,6 @@ const updateById = async (idPatient, updatePatient) => {
             profilePicture: updatePatient.profilePicture,
             height: updatePatient.height,
             gender: updatePatient.gender,
-            birthDate: updatePatient.birthDate,
             weight: updatePatient.weight
         })
         return {data: data.patient, error:false}
@@ -48,9 +47,8 @@ const updateById = async (idPatient, updatePatient) => {
 
 const createAllergyById = async (idPatient, allergyData) => {
     try{
-        const { data } = await Api().post(`/patients/allergies/${idPatient}`, {
-            idAllergy: allergyData.idAllergy,
-            symptoms: allergyData.symptoms
+        const { data } = await Api().post(`/patients/${idPatient}/allergies/${allergyData.idAllergy}`, {
+            symptons: allergyData.symptoms
         })
         return {data: data, error:false}
     }catch(err){
@@ -61,32 +59,34 @@ const createAllergyById = async (idPatient, allergyData) => {
 
 const getAllergiesById = async (idPatient) => {
     try{
-        const { data } = await Api().get(`/patients/allergies/${idPatient}`)
-        return {data: data, error:false}
+        const { data } = await Api().get(`/patients/${idPatient}/allergies`)
+        return {data: data.map(item=>{
+            return {
+                allergyId: item.allergyId,
+                symptons: item.symptons,
+                name: item.allergy.name
+            }
+        }), error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao buscar paciente.')
     }
 }
 
-const deleteAllergiesById = async (idAllergy, idPatient) => {
+const deleteAllergiesById = async (idPatient, idAllergy) => {
     try{
-        const { data } = await Api().delete(`/patients/allergies/${idPatient}`,{
-           data: { idAllergy: idAllergy }
-        })
+        const { data } = await Api().delete(`/patients/${idPatient}/allergies/${idAllergy}`)
         return {data:data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao deletar doença')
     }
 }
 
-const createConditionById = async (idPatient, conditionData) => {
+const createConditionByData = async (conditionData) => {
     try{
-        const { data } = await Api().post(`/patients/conditions/${idPatient}`,{
-            idCondition: conditionData.idCondition,
-            isActive: conditionData.isActive,
+        const { data } = await Api().post(`/appointments/${conditionData.appointmentId}/conditions`,{
+            name: conditionData.name,
             isInFamily: conditionData.isInFamily,
-            symptoms: conditionData.symptoms,
-            startedAt: conditionData.startedAt
+            description: conditionData.description
         })
         return {data: data, error:false}
     }catch(err){
@@ -96,7 +96,7 @@ const createConditionById = async (idPatient, conditionData) => {
 
 const getConditionsById = async (idPatient) => {
     try{
-        const { data } = await Api().get(`/patients/conditions/${idPatient}`)
+        const { data } = await Api().get(`/patients/${idPatient}/conditions`)
         return {data: data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao buscar paciente.')
@@ -105,9 +105,7 @@ const getConditionsById = async (idPatient) => {
 
 const deleteConditionById = async (idCondition) => {
     try{
-        const { data } = await Api().delete('/patients/conditions',{
-           data: { idRelation: idCondition }
-        })
+        const { data } = await Api().delete(`/conditions/${idCondition}`)
         return {data:data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao deletar doença')
@@ -117,7 +115,7 @@ const deleteConditionById = async (idCondition) => {
 
 const getMedicationsById = async (idPatient) => {
     try{
-        const { data } = await Api().get(`/patients/medications/${idPatient}`)
+        const { data } = await Api().get(`/patients/${idPatient}/medicines`)
         return {data: data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao buscar medicamento.')
@@ -125,33 +123,51 @@ const getMedicationsById = async (idPatient) => {
 } 
 
 const createMedicationsById = async (idPatient, medication) => {
+
     try{
-        const { data } = await Api().post(`/patients/medications/${idPatient}`,{...medication})
+        const { data } = await Api().post(`/patients/${idPatient}/medicines/${medication.medicineId}`,{
+            frequency: medication.frequency,
+            startedAt: medication.startedAt
+        })
         return {data: data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao criar medicamento.')
     }
 } 
 
-
-const getExamsById = async (idPatient) => {
+const deleteMedicationById = async (idPatient, idMedication) => {
     try{
-        const { data } = await Api().get(`/patients/exams/${idPatient}`)
-        return {data: data, error:false}
+        const {data} = await Api().delete(`/patients/${idPatient}/medicines/${idMedication}`)
+        return {data: data, error: false}
     }catch(err){
-        return new ApiException(err.message || 'Erro ao buscar Exame.')
+        return new ApiException(err.message || 'Erro ao deletar o medicamento')
+    }
+}
+
+
+const getExamsByAppointments = async (appointments) => {
+    try{
+
+        let exams = []
+
+        for (let i = 0; i<appointments.length ; i++) {
+            const { data } = await Api().get(`/appointments/${appointments[i].id}/exams`)
+            if (data.error)  
+                throw new Error('Error ao buscar exame')
+            exams = [...exams, ...data]
+        }
+        return {data: exams, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao buscar Exame por Consultas.')
     }
 } 
 
 const createExam = async (examData) => {
     try{
-        const { data } = await Api().post('/patients/exams',{
-            idPatient: examData.idPatient,
-            idDoctor: examData.idDoctor,
+        const { data } = await Api().post(`/appointments/${examData.appointmentId}/exams`,{
             examType: examData.examType,
+            result: examData.result,
             location: examData.location,
-            summary: examData.description,
-            date:  examData.date
         })
         return {data: data, error:false}
     }catch(err){
@@ -197,6 +213,15 @@ const createDiagnosis = async (newDiagnose) => {
     }
 }
 
+const getAppointmentsById = async (idPatient) => {
+    try{
+        const { data } = await Api().get(`/patients/${idPatient}/appointments`)
+        return {data: data, error:false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao buscar consultas.')
+    }
+}
+
 export const PatientService = {
     getById,
     create,
@@ -207,17 +232,20 @@ export const PatientService = {
     deleteAllergiesById,
 
     getConditionsById,
-    createConditionById,
+    createConditionByData,
     deleteConditionById,
 
     getMedicationsById,
     createMedicationsById,
+    deleteMedicationById,
     
-    getExamsById,
+    getExamsByAppointments,
     createExam,
     deleteExamById,
     editExam,
 
     getDiagnosesById,
-    createDiagnosis
+    createDiagnosis,
+
+    getAppointmentsById
 }

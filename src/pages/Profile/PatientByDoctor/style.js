@@ -62,3 +62,14 @@ export const ImageContainer = styled.div`
     }
 
 `
+
+export const BtnAction = styled.button`
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--green);
+    color: #000;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+`

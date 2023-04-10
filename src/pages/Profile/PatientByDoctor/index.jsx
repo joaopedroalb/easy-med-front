@@ -12,13 +12,14 @@ import { PatientService } from '../../../services/patient/PatientService'
 import { INFO_TYPES } from '../../../util/consts/types'
 import { MaskService } from '../../../util/maskService'
 import InfoList from '../Patient/components/InfoList'
-import ModalCreateDiagnoses from './components/ModalCreateDiagnoses'
-import { ImageContainer, ProfileBg } from './style'
+import { BtnAction, ImageContainer, ProfileBg } from './style'
+import ModalCreateCondition from './components/ModalCreateCondition'
+import ModalCreateMedication from './components/ModalCreateMedication'
+import ModalCreateExam from './components/ModalCreateExam'
 
 const IMAGE_DEFAULT = 'https://cdn.discordapp.com/attachments/469630958811742212/1022924520002158624/unknown.png'
 
 export default function PatientByDoctor() {
-    const {user} = useContext(UserContext)
     const {id} = useParams()
 
     const [photo, setPhoto] = useState(null)
@@ -32,35 +33,32 @@ export default function PatientByDoctor() {
     const [medications, setMedications] = useState([])
     const [allergies, setAllergies] = useState([])
     const [conditions, setConditions] = useState([])
-    const [diagnoses,setDiagnoses] = useState([])
     const [exams, setExams] = useState([])
+    const [appointments, setAppointments] = useState([])
 
-    const [diagModal, setDiagModal] = useState(false)
-    
+    const [conditionModal, setConditionModal] = useState(false)
+    const [medicationModal, setMedicationModal] = useState(false)
+    const [examModal, setExamModal] = useState(false)
 
-    const handleOpenModal = () => setDiagModal(true)
-    const handleCloseModal = () => setDiagModal(false)
 
-    const createDiagnone = async (newDiagnose) => {
-        const newDiagnoseResult = await PatientService.createDiagnosis(newDiagnose)
+    const handleCreateCondition = async (newCondition) => {
+        const result = await PatientService.createConditionByData(newCondition)
 
-        if(!newDiagnoseResult.error)
-            await getUserInfos(id)
+        if(result.error) return null
+
+        setConditions([...conditions, result.data])
     }
 
-    const handleAddDiagnose =  async (diagnose) => {
-        await createDiagnone(diagnose)
+    const handleCreateMedication = async (newMedication) => {
+        const result = await PatientService.createMedicationsById(patient.id, newMedication)
+        if(result.error) return null 
+        setMedications([...medications, result.data])
     }
 
-    const handleAddMedicationByList = async (newMedications) => {
-        await newMedications.forEach(async newMedication=>{
-            try{
-                await PatientService.createMedicationsById(id, newMedication)
-            }catch(err){
-                console.log('não adicionou o medicamento')
-            }
-        })
-        await getUserInfos(id)
+    const handleCreateExam = async (newExam) => {
+        const result = await PatientService.createExam(newExam)
+        if(result.error) return null
+        setExams([...exams, result.data])
     }
 
     const getOptionsList = async () => {
@@ -77,36 +75,37 @@ export default function PatientByDoctor() {
     
         const conditionsResult  = await PatientService.getConditionsById(id)
         if(!conditionsResult.error) setConditions(conditionsResult.data)
-    
-        const examsResult  = await PatientService.getExamsById(id)
-        if(!examsResult.error) setExams(examsResult.data)
 
-        const diagnosesResult = await PatientService.getDiagnosesById(id)
-        if(!diagnosesResult.error) setDiagnoses(diagnosesResult.data)
+        const appointmentsResult = await PatientService.getAppointmentsById(id)
+        if(!appointmentsResult.error) {
+            setAppointments(appointmentsResult.data)
+            const examsResult  = await PatientService.getExamsByAppointments(appointmentsResult.data)
+            if(!examsResult.error) setExams(examsResult.data)
+        }        
       }
     
 
     const getData = useCallback(async ()=>{
-       const result = await PatientService.getById(id)
-       if(result.error) 
-        return null
+        const result = await PatientService.getById(id)
+        if(result.error) 
+            return null
 
-       setPatient(result.data)
-       getUserInfos(result.data.id)
-       getOptionsList()
-       setPhoto(result.data.profilePicture)
+        await getOptionsList()
+        setPatient(result.data)
+        getUserInfos(result.data.id)
+        setPhoto(result.data.profilePicture)
 
-       setLoading(false)
+        setLoading(false)
        
     },[])
 
-    const getInfoListDataDiagnose = () => {
-        return diagnoses.map(item=>{
-            const diagnosesExams = item.relatedExams.map(x=> x.idExam)
-            const listExamData = exams.filter(exam=> diagnosesExams.includes(exam.id))
-            return {...item, examList:listExamData}
-        })
-    }
+    const MEDICATION_LIST_CARD = medications.map(med=>{
+        const MEDICATION_FILTER = medicationsDefault.filter(x=> x.id === med.medicineId)[0]
+        return {
+            ...med, 
+            name: MEDICATION_FILTER ? MEDICATION_FILTER.name : 'Não Definido'
+        }
+    })
     
 
     useEffect(()=>{
@@ -127,15 +126,23 @@ export default function PatientByDoctor() {
     return (
         <LayoutPage>
             <ProfileBg>
-                <ModalCreateDiagnoses 
-                    open={diagModal} 
-                    handleClose={handleCloseModal} 
-                    handleCreateDiagnose={handleAddDiagnose} 
-                    handleCreateMedications={handleAddMedicationByList}
-                    idDoctor={user.id}
-                    idPatient={id} 
-                    exams={exams}
-                    medications={medicationsDefault}
+                <ModalCreateCondition 
+                    open={conditionModal} 
+                    handleClose={()=>setConditionModal(false)} 
+                    handleCreate={handleCreateCondition} 
+                    appointments={appointments} 
+                />
+                <ModalCreateMedication 
+                    open={medicationModal} 
+                    handleClose={()=>setMedicationModal(false)} 
+                    handleCreate={handleCreateMedication} 
+                    medications={medicationsDefault} 
+                />
+                <ModalCreateExam 
+                    open={examModal} 
+                    handleClose={()=>setExamModal(false)} 
+                    handleCreate={handleCreateExam} 
+                    appointments={appointments} 
                 />
                 <div className='info-container'>
                    <ImageContainer>
@@ -154,14 +161,14 @@ export default function PatientByDoctor() {
                    </div>
                 </div>
                 <InfoList 
-                    title='Doenças Hereditárias'
-                    insertTitle='Adicionar nova Doença Hereditária'
-                    typeInfo={INFO_TYPES.HEREDITARY}
+                    title='Doenças'
+                    insertTitle='Adicionar nova Doença'
+                    typeInfo={INFO_TYPES.CONDITION}
                     list={conditions}
-                    hasDescription={false}
+                    hasDescription
                     theme='dark'
+                    footer={<BtnAction onClick={()=>setConditionModal(true)}>Adicionar nova Doença</BtnAction>}
                 />
-
                 <InfoList 
                     title='Alergias'
                     insertTitle='Adicionar nova Alergia'
@@ -175,9 +182,10 @@ export default function PatientByDoctor() {
                     title='Medicamentos'
                     insertTitle='Adicionar novo Medicamento'
                     typeInfo={INFO_TYPES.MEDICATION}
-                    list={medications}
+                    list={MEDICATION_LIST_CARD}
                     hasDescription={true}
                     theme='dark'
+                    footer={<BtnAction onClick={()=>setMedicationModal(true)}>Adicionar novo Medicamento</BtnAction>}
                 />
 
                 <InfoList 
@@ -187,19 +195,7 @@ export default function PatientByDoctor() {
                     list={exams}
                     hasDescription={true}
                     theme='white'
-                />
-
-                <InfoList 
-                    title='Diagnósticos'
-                    insertTitle='Adicionar novo diagnóstico'
-                    typeInfo={INFO_TYPES.DIAGNOSES}
-                    list={getInfoListDataDiagnose()}
-                    isInsert
-                    hasDescription
-                    theme='dark'
-                    crudActions={{
-                        handleCreate: handleOpenModal,
-                    }}
+                    footer={<BtnAction onClick={()=>setExamModal(true)}>Adicionar um novo exame</BtnAction>}
                 />
             </ProfileBg>
         </LayoutPage>
