@@ -22,7 +22,7 @@ const getConditions = async () => {
 
 const getAllergies = async () => {
     try{
-        const { data } = await Api().get('/patients/allergies/list')
+        const { data } = await Api().get('/allergies')
         return {data: data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao buscar lista de alergias.')

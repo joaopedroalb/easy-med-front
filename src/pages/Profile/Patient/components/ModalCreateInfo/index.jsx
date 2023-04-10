@@ -18,13 +18,6 @@ const INITAL_VALUE = {
     idAllergy: 0,
     symptoms: ''
   },
-
-  [INFO_TYPES.EXAM]: {
-    examType: EXAM_TYPES[0].value,
-    date: new Date().toISOString().substring(0, 10),
-    location: '',
-    description: ''
-  },
 }
 
 export default function ModalCreateInfo({open, handleClose, type, handleCreate, allergies, conditions}) {
@@ -83,12 +76,12 @@ export default function ModalCreateInfo({open, handleClose, type, handleCreate, 
           <h1 className='title'>Adicione uma alergia</h1>
           <div className='row-label'>
             <div className='col-label'>
-              <label>Doença</label>
-              <select onChange={({target})=>handleChangeValue(target.value, 'idAllergy')}>
-              <option selected value={null} disabled>Selecione uma alergia</option>
-                {allergies.map(allergy=>{
-                  return <option key={allergy.id} value={allergy.id}>{allergy.description}</option>
-                })}
+              <label htmlFor='allergyItem'>Alergia: </label>
+              <select onChange={({target})=>handleChangeValue(target.value, 'idAllergy')} id='allergyItem'>
+                <option selected value={null} disabled>Selecione uma alergia</option>
+                  {allergies.map(allergy=>{
+                    return <option key={allergy.id} value={allergy.id}>{allergy.name}</option>
+                  })}
               </select>
             </div>
           </div>
@@ -105,53 +98,6 @@ export default function ModalCreateInfo({open, handleClose, type, handleCreate, 
         </ModalCreateForm>
       </Modal>
     )
-
-    if(type === INFO_TYPES.EXAM)
-      return (
-        <Modal
-          open={open}
-          handleClose={handleClose}
-        >
-          <ModalCreateForm onClick={(event)=>event.stopPropagation()} onSubmit={handleSubmit}>
-            <h1 className='title'>Adicione um novo Exame</h1>
-            <div className='row-label'>
-            <div className='col-label'>
-                <label>Tipo do exame</label>
-                <select onChange={({target})=>{handleChangeValue(target.value, 'examType')}}>
-                  {
-                    EXAM_TYPES.map(item=>{
-                      return <option key={item.value} value={item.value}>{item.text}</option>
-                    })
-                  }
-                </select>
-              </div>
-              <div className='col-label'>
-                <label>Data</label>
-                <input type='date' value={infoData.date} onChange={({target})=>{handleChangeValue(target.value, 'date')}}/>
-              </div>
-
-              <div className='col-label'>
-                <label>Local:</label>
-                <input value={infoData.location} onChange={({target})=>{handleChangeValue(target.value, 'location')}}/>
-              </div>
-
-            </div>
-
-            <div className='row-label'>
-              <div className='col-label-3g'>
-                <label>Descrição:</label>
-                <textarea value={infoData.description} onChange={({target})=>{handleChangeValue(target.value, 'description')}}/>
-              </div>
-            </div>
-
-
-            <div className='row-label btn-container'>
-              <button className='cancel-btn'type='button' onClick={handleCancel}>Cancelar</button>
-              <button className='submit-btn'>Adicionar</button>
-            </div>
-          </ModalCreateForm>
-        </Modal>
-      )
 
     return null
     

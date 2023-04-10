@@ -36,7 +36,6 @@ const updateById = async (idPatient, updatePatient) => {
             profilePicture: updatePatient.profilePicture,
             height: updatePatient.height,
             gender: updatePatient.gender,
-            birthDate: updatePatient.birthDate,
             weight: updatePatient.weight
         })
         return {data: data.patient, error:false}
@@ -48,9 +47,8 @@ const updateById = async (idPatient, updatePatient) => {
 
 const createAllergyById = async (idPatient, allergyData) => {
     try{
-        const { data } = await Api().post(`/patients/allergies/${idPatient}`, {
-            idAllergy: allergyData.idAllergy,
-            symptoms: allergyData.symptoms
+        const { data } = await Api().post(`/patients/${idPatient}/allergies/${allergyData.idAllergy}`, {
+            symptons: allergyData.symptoms
         })
         return {data: data, error:false}
     }catch(err){
@@ -74,11 +72,9 @@ const getAllergiesById = async (idPatient) => {
     }
 }
 
-const deleteAllergiesById = async (idAllergy, idPatient) => {
+const deleteAllergiesById = async (idPatient, idAllergy) => {
     try{
-        const { data } = await Api().delete(`/patients/allergies/${idPatient}`,{
-           data: { idAllergy: idAllergy }
-        })
+        const { data } = await Api().delete(`/patients/${idPatient}/allergies/${idAllergy}`)
         return {data:data, error:false}
     }catch(err){
         return new ApiException(err.message || 'Erro ao deletar doença')
@@ -138,6 +134,15 @@ const createMedicationsById = async (idPatient, medication) => {
         return new ApiException(err.message || 'Erro ao criar medicamento.')
     }
 } 
+
+const deleteMedicationById = async (idPatient, idMedication) => {
+    try{
+        const {data} = await Api().delete(`/patients/${idPatient}/medicines/${idMedication}`)
+        return {data: data, error: false}
+    }catch(err){
+        return new ApiException(err.message || 'Erro ao deletar o medicamento')
+    }
+}
 
 
 const getExamsByAppointments = async (appointments) => {
@@ -232,6 +237,7 @@ export const PatientService = {
 
     getMedicationsById,
     createMedicationsById,
+    deleteMedicationById,
     
     getExamsByAppointments,
     createExam,

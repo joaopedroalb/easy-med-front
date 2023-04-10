@@ -100,7 +100,6 @@ export default function PatientByDoctor() {
     },[])
 
     const MEDICATION_LIST_CARD = medications.map(med=>{
-
         const MEDICATION_FILTER = medicationsDefault.filter(x=> x.id === med.medicineId)[0]
         return {
             ...med, 

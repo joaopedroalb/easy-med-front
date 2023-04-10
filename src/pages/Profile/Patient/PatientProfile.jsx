@@ -11,7 +11,6 @@ import InfoList from './components/InfoList';
 import { INFO_TYPES } from '../../../util/consts/types';
 import { CommonService } from '../../../services/common/CommonService';
 import Loading from '../../../components/common/Loading';
-import ModalEditExam from './components/ModalEditExam';
 
 
 export default function PatientProfile() {
@@ -34,12 +33,7 @@ export default function PatientProfile() {
                                               type:''
                                             })
 
-  const [editExamModal, setEditExamModal] = useState({
-                                                        open:false,
-                                                        exam:null
-                                                      })
-
-  useDisableBodyScroll(infoModal.open || editExamModal.open)
+  useDisableBodyScroll(infoModal.open)
 
   const getOptionsList = async () => {
     const medicationListResult = await CommonService.getMedications()
@@ -62,8 +56,11 @@ export default function PatientProfile() {
     const conditionsResult  = await PatientService.getConditionsById(user.id)
     if(!conditionsResult.error) setConditions(conditionsResult.data)
 
-    const examsResult  = await PatientService.getExamsById(user.id)
-    if(!examsResult.error) setExams(examsResult.data)
+    const appointmentsResult = await PatientService.getAppointmentsById(user.id)
+    if(!appointmentsResult.error) {
+        const examsResult  = await PatientService.getExamsByAppointments(appointmentsResult.data)
+        if(!examsResult.error) setExams(examsResult.data)
+    }     
   }
 
   const getData = useCallback(async ()=>{
@@ -91,12 +88,21 @@ export default function PatientProfile() {
     getData()
 },[])
 
+const MEDICATION_LIST_CARD = medications.map(med=>{
+  const MEDICATION_FILTER = medicationList.filter(x=> x.id === med.medicineId)[0]
+  return {
+      ...med, 
+      name: MEDICATION_FILTER ? MEDICATION_FILTER.name : 'Não Definido',
+      id: med.medicineId,
+  }
+})
+
+const ALLERGIES_LIST_CARD = allergies.map(item=>{
+  return {...item, id: item.allergyId}
+})
+
   const openModalByType = (type) => {
     setInfoModal({open:true, type:type})
-  }
-
-  const closeModalEditExam = () => {
-    setEditExamModal({open:false, exam:null})
   }
 
   const closeModalType = () => setInfoModal({open:false, type:''})
@@ -109,20 +115,17 @@ export default function PatientProfile() {
     }
 
     if(type === INFO_TYPES.ALLERGY){
-      const result = await PatientService.deleteAllergiesById(id, user.id)
+      const result = await PatientService.deleteAllergiesById(user.id, id)
       if(!result.error) await getUserInfos()
       return !result.error
     }
 
-    if(type === INFO_TYPES.EXAM){
-      const result = await PatientService.deleteExamById(id)
+    if(type === INFO_TYPES.MEDICATION)  {
+      const result = await PatientService.deleteMedicationById(user.id, id)
       if(!result.error) await getUserInfos()
       return !result.error
     }
-  }
 
-  const handleUpdteEditExam = (editExam) => {
-    setEditExamModal({open:true, exam:editExam})
   }
   
   const handleUpdate = async (type, newValue) => {
@@ -136,13 +139,6 @@ export default function PatientProfile() {
   }
 
   const handleCreate = async (type, data) => {
-    if(type === INFO_TYPES.EXAM){
-      const newExam = {...data, idPatient: user.id}
-      const result = await PatientService.createExam(newExam)
-      if(!result.error) await getUserInfos()
-      return !result.error
-    }
-
     if(type === INFO_TYPES.ALLERGY){
       const result = await PatientService.createAllergyById(user.id, data)
       if(!result.error) await getUserInfos()
@@ -152,13 +148,13 @@ export default function PatientProfile() {
   }
 
   const RenderBody = () => {
-
+  
     if(loading) 
       return <Loading />
 
     if(userData === null)
       return <div>Error</div>
-    
+
     return (
       <>
         <HeaderProfile
@@ -176,26 +172,14 @@ export default function PatientProfile() {
           allergies={allergyList}
           conditions={conditionList}
         />
-        <ModalEditExam 
-          open={editExamModal.open} 
-          handleClose={closeModalEditExam} 
-          exam={editExamModal.exam} 
-          handleCreate={(value)=>{
-            handleUpdate(INFO_TYPES.EXAM,value)
-            closeModalEditExam()
-          }} 
-          handleCancel={closeModalEditExam}
-        />
         <InfoList 
-          title='Doenças Hereditárias'
-          insertTitle='Adicionar nova Doença Hereditária'
+          title='Doenças'
+          insertTitle='Adicionar nova Doença'
           typeInfo={INFO_TYPES.CONDITION}
           list={conditions}
           isDelete
           crudActions={{
-            handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
-            handleUpdate: handleUpdate
           }}
           hasDescription
           theme='dark'
@@ -205,7 +189,7 @@ export default function PatientProfile() {
           title='Alergias'
           insertTitle='Adicionar nova Alergia'
           typeInfo={INFO_TYPES.ALLERGY}
-          list={allergies}
+          list={ALLERGIES_LIST_CARD}
           isDelete
           crudActions={{
             handleCreate: openModalByType,
@@ -214,13 +198,15 @@ export default function PatientProfile() {
           }}
           hasDescription
           theme='white'
+          isInsert
         />
 
         <InfoList 
           title='Medicamentos'
           insertTitle='Adicionar novo Medicamento'
           typeInfo={INFO_TYPES.MEDICATION}
-          list={medications}
+          list={MEDICATION_LIST_CARD}
+          isDelete
           crudActions={{
             handleCreate: openModalByType,
             handleDelete: handleDeleteInfo,
@@ -235,13 +221,6 @@ export default function PatientProfile() {
           insertTitle='Adicionar novo Exame'
           typeInfo={INFO_TYPES.EXAM}
           list={exams}
-          isEdit
-          isDelete
-          crudActions={{
-            handleCreate: openModalByType,
-            handleDelete: handleDeleteInfo,
-            handleUpdate: handleUpdteEditExam
-          }}
           hasDescription={true}
           theme='white'
         />
