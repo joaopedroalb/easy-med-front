@@ -77,12 +77,9 @@ function DoctorProfile() {
 
     setError(error);
     setLoading(false);
-    console.log(error);
-    console.log(data);
   }
 
   useEffect(()=>{
-    console.log("hello world");
     getDoctorData()
   },[user])
 
