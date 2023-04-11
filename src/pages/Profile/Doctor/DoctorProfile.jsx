@@ -60,28 +60,30 @@ function DoctorProfile() {
     const {data, error} = await DoctorService.updateById(doctor.id, doctor)
   }
 
+  const getDoctorData = async () =>{
+    await getSpecialtyList();
+    const { data, error } = await DoctorService.getById(user.id);
+    if (!error)
+      setDoctor({
+        description: data.description,
+        email: data.email,
+        id: data.id,
+        insurance: data.insurance,
+        name: data.name,
+        phone: data.phone,
+        profilePicture: data.profilePicture,
+        specialtyId: data.specialtyId,
+      });
+
+    setError(error);
+    setLoading(false);
+    console.log(error);
+    console.log(data);
+  }
+
   useEffect(()=>{
     console.log("hello world");
-    return async () => {
-      await getSpecialtyList()
-      const {data, error} = await DoctorService.getById(user.id)
-      if (!error)
-        setDoctor({
-          description: data.description,
-          email: data.email,
-          id: data.id,
-          insurance: data.insurance,
-          name: data.name,
-          phone: data.phone,
-          profilePicture: data.profilePicture,
-          specialtyId: data.specialtyId
-        })
-      
-      setError(error)
-      setLoading(false)
-      console.log(error);
-      console.log(data);
-    }
+    getDoctorData()
   },[user])
 
   if(loading || !doctor)
