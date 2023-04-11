@@ -61,6 +61,7 @@ function DoctorProfile() {
   }
 
   useEffect(()=>{
+    console.log("hello world");
     return async () => {
       await getSpecialtyList()
       const {data, error} = await DoctorService.getById(user.id)
