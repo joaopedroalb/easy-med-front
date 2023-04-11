@@ -79,7 +79,7 @@ function DoctorProfile() {
       setError(error)
       setLoading(false)
     }
-  },[])
+  },[user])
 
   if(loading || !doctor)
     return (
