@@ -78,6 +78,8 @@ function DoctorProfile() {
       
       setError(error)
       setLoading(false)
+      console.log(error);
+      console.log(data);
     }
   },[user])
 
